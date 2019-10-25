@@ -1,0 +1,31 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_login.proto";
+import "google/api/annotations.proto";
+
+service LoginService {
+
+  rpc Login (FunPlus.Common.Config.PBLoginRequest) returns (FunPlus.Common.Config.PBLoginResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/login"
+        body: "*"
+      };
+  }
+
+  rpc GetPlayerData (FunPlus.Common.Config.PBPlayerDataRequest) returns (FunPlus.Common.Config.PBPlayerDataResponse) {
+      option (google.api.http) = {
+            post: "/api/v1/login/get-player-data"
+            body: "*"
+        };
+  }
+
+  rpc FinishPrologue (FunPlus.Common.Config.PBPrologueFinishRequest) returns (FunPlus.Common.Config.PBPrologueFinishResponse) {
+      option (google.api.http) = {
+            post: "/api/v1/login/finish-prologue"
+            body: "*"
+        };
+  }
+
+}

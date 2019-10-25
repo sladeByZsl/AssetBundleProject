@@ -1,0 +1,51 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+
+
+/**
+ * @brief 通用Debug命令
+ *  （1）定义的debug命令的参数类型可以是int64_t、double或string类型（也可以int64_t和double混用）
+ *  （2）参数含义由服务器自行判断
+ *  （3）注释解析：X1-i（代表参数1是一个int64_t型），X2-d（代表参数2是一个double型），X3-s（代表参数3是一个string型）
+ */
+enum ESDebugCmd
+{
+    CDC_Invalid              = 0;
+    CDC_AddDiamond           = 1; // 增加钻石，参数：X1-i(钻石个数)
+    CDC_AddGold              = 2; // 增加金币，参数：X1-i(金币个数)
+    CDC_AddStone             = 3; // 增加石头，参数：X1-i(石头数量)
+    CDC_GainHeroCard         = 4; // 获得英雄卡牌，参数：X1-i(英雄的id)
+    CDC_GainAllHeroes        = 5; // 获得所有英雄，参数：无
+	CDC_UnlockDungeon        = 6; // 解锁副本章节  参数1:章节id，参数2:关卡id
+    CDC_AddItem              = 7; // 获得物品      参数1:物品id，参数2:物品数量
+    CDC_GetDropRewards       = 8; // 获取掉落奖励  参数:掉落id 次数
+    CDC_RemoveItem           = 9; // 移除物品      参数1:物品id，参数2:物品数量
+    CDC_AddResource          = 10; // 增加资源     参数1:资源id，参数2:数量
+    CDC_UseItem              = 11; // 使用物品      参数1:物品id，参数2:物品数量
+    CDC_FillEnergy           = 12; // 补满体力      参数:无
+    CDC_RefreshShop          = 13; // 刷新商店      参数1:商店id
+    CDC_SetFakeTime          = 1001; // 设置服务器时间，参数：时间戳
+}
+
+message PBDebugCmd
+{
+    optional int32 op_type = 1;
+    repeated string parameters = 2;
+}
+
+message PBDebugCmdRequest
+{
+    option (OptionMessageId) = SC_MSG_DebugCmd_Request;
+    repeated PBDebugCmd debug_cmds = 1;
+}
+
+message PBDebugCmdResponse
+{
+    option (OptionMessageId) = SC_MSG_DebugCmd_Response;
+}
+

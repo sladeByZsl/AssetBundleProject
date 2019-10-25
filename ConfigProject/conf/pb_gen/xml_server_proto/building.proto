@@ -1,0 +1,147 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+import "common/enum_define.proto";
+option go_package = "server/pkg/gen/rawdata";
+
+
+//建筑基础
+message PBBuilding
+{
+	optional uint32 b_id						= 1;//建筑ID
+	optional ESBuildingType b_buildingType		= 2[default = BuildingType_Resource];//建筑类型
+	optional int32 b_level						= 3;//建筑等级
+	optional string b_name						= 4;//建筑显示名称
+	optional string b_desc						= 5;//建筑说明
+	optional ESResourceType b_upgradeCostType	= 6[default = Resource_Gold];//升级消耗货币类型
+	optional int32 b_upgradeCostValue			= 7;//货币消耗数值
+	optional int32 b_upgradeCostTime			= 8;//升级所需时间(s)
+	optional uint32 b_displayId					= 9;//显示表ID
+	optional uint32 b_otherId					= 10;//资源/其他分类的Id
+	repeated PBBuildingRequire requires			= 11;//升级前置条件
+}
+
+message PBBuildingRequire
+{
+	optional uint32 require_id 					= 1; //前置要求id
+	optional uint32 require_value 				= 2; //前置要求value
+}
+
+//建筑显示
+message PBBuildingDisplay
+{
+	optional uint32 b_id				= 1;//建筑ID
+	optional string icon				= 2;//图标
+	optional string model				= 3;//基本模型
+	optional string upgrade_model		= 4;//升级/建造时模型
+	optional string collect_effect		= 5;//收集时动画
+	optional string complete_effect		= 6;//完成时动画
+	optional string progress_ui			= 7;//进度条ui
+	optional string bubble_ui			= 8;//气泡ui
+}
+
+//资源建筑属性
+message PBResourceBuilding
+{
+	optional uint32 b_id							= 1;//ID
+	optional ESResourceType production_type			= 2[default = Resource_Gold];//产品类型
+	optional int32 product_speed					= 3;//生产速度
+	optional int32 storage_limit					= 4;//存储上限
+}
+
+//属性
+message PBAttribute
+{
+	optional ESAttributeType attribute_type			= 1[default = AttributeType_None]; //属性类型
+	optional int32 value 							= 2; //属性值
+}
+
+//属性建筑属性
+message PBAttributeBuilding
+{
+	optional uint32 id								= 1;//ID
+	repeated PBAttribute attributes					= 2;//属性
+}
+
+//建筑加速消耗
+message PBBuildingSkipCost
+{
+	optional int32 id						= 1;//ID
+	optional int32 timeMin					= 2;//时间段（分钟）
+	optional int32 gemStep					= 3;//每分钟耗钻
+	optional int32 gemSum					= 4;//累计耗钻
+}
+
+//建筑加速消耗
+message PBBuildingSkipCostList
+{
+	repeated PBBuildingSkipCost skip_costs = 1;
+}
+
+//建筑区域
+message PBArea
+{
+    optional int32 area_id             = 1; //区域id
+    repeated int32 pos_id_list         = 2; //对应地基列表
+}
+
+//建筑区域列表
+message PBBuildingAreas
+{
+    repeated PBArea areas         = 1;
+}
+
+//主城解锁
+message PBBuildingUnlock
+{
+    optional int32 unlock_id             = 1; //id
+    optional int32 main_level             = 2; //主城等级
+    optional int32 area_id                 = 3; //解锁区域
+    repeated uint32 unlock_buildings     = 4; //可建造建筑
+    repeated int32 building_amounts     = 5; //可建造建筑数量
+}
+
+//主城解锁列表
+message PBBuildingUnlockList
+{
+    repeated PBBuildingUnlock building_unlock_list = 1;
+}
+
+// 英雄训练营
+message PBCampBuilding
+{
+	optional uint32 id 								= 1;//id
+	repeated uint32 production_list					= 2;//训练列表
+}
+
+// 英雄训练营生产表
+message PBCampProduct
+{
+	optional uint32 id 								= 1;//id
+	optional string icon 							= 2;//图标
+	optional string lock_icon 						= 3;//锁定图标
+	optional string desc 							= 4;//说明
+	optional bool is_special						= 5;//是否特殊
+	optional uint32 drop_id 						= 6;//掉落组id
+	optional string unlock_desc 					= 7;//解锁说明
+	optional int32 unlock_level 					= 8;//解锁等级
+	repeated PBResourceValue research_costs 		= 9;//研究费用
+	optional int32 research_time 					= 10;//研究用时
+	repeated PBResourceValue train_costs 			= 11;//训练费用
+	//repeated PBAscendCostEntity train_cost_items 	= 12;//训练道具消耗
+	optional int32 train_time 						= 13;//训练用时
+}
+
+//训练加速消耗
+message PBCampSkipCost
+{
+	optional int32 id						= 1;//ID
+	optional int32 timeMin					= 2;//时间段（分钟）
+	optional int32 gemStep					= 3;//每分钟耗钻
+	optional int32 gemSum					= 4;//累计耗钻
+}
+
+//训练营训练加速消耗
+message PBCampSkipCostList
+{
+	repeated PBCampSkipCost skip_costs = 1;
+}

@@ -1,0 +1,30 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+///
+/// 爵位系统
+///
+
+// 领取爵位奖励请求
+message PBReceiveTitleRewardRequest
+{
+    option (OptionMessageId) = SC_MSG_ReceiveTitleRewardRequest;
+}
+
+// 领取爵位奖励请求
+message PBReceiveTitleRewardResponse
+{
+    option (OptionMessageId) = SC_MSG_ReceiveTitleRewardResponse;
+    optional uint32 titleLevel                  = 1;   // title level
+    repeated PBItemValue rewardData             = 2;    // reward data
+}
+
+
+
+
+

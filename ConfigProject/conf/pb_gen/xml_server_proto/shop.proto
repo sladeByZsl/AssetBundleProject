@@ -1,0 +1,93 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+option go_package = "server/pkg/gen/rawdata";
+import "common/enum_define.proto";
+
+// 商品格子
+message PBProductEntity
+{
+    optional uint32 item_id         = 1; // 物品模板id
+    optional uint32 count           = 2; // 物品數量
+}
+
+// 商品模板
+message PBShopProduct
+{
+    optional uint32 id						= 1;	// 商品id
+    repeated PBProductEntity items          = 2;    // 道具列表
+    optional uint32 max_count 	     		= 3;	// 购买最大次数
+    optional uint32 cost_id	    			= 4;	// 消耗资源id
+    optional uint32 cost_count 				= 5;	// 消耗货币数量
+}
+
+
+
+//  商城模板
+message PBShop
+{
+    optional int32       id		          		      = 1;	// 商品id
+    optional EShopType   type				          = 2[default=EST_Normal];	// 商品类型
+    optional int32       require_level                = 3;    //  开放等级
+    optional int32       duration                     = 4;    //  持续时间(秒)
+    optional int32       product_num                  = 5;    //  生成可购买商品数量
+}
+
+//  商城列表
+message PBShopList
+{
+    repeated PBShop     shops                          = 1;
+}
+
+// 普通商店候选项
+message PBProductCandidateId
+{
+    optional uint32       id                           = 1;  // 商品id
+}
+
+//  普通商店候选表
+message PBShopNormalCandidateList
+{
+    optional uint32       id                           = 1;  // 商店id
+    repeated PBProductCandidateId candidate_ids        = 2;  // 商品列表  
+}
+
+//  商品权重候选项
+message PBProductCandidateWeight
+{
+    optional uint32       candidate_id                 = 1;  // 商品id   
+    optional uint32       weight                       = 2;  // 概率   
+}
+
+//  每日商城候选表
+message PBShopDailyCandidateList
+{
+    optional uint32       id                           = 1;  // id
+    repeated PBProductCandidateWeight candidate_list   = 2;  // 商品候选列表  
+}
+
+//  幸运商城候选表
+message PBShopLuckyCandidateList
+{
+    optional uint32       id                           = 1;  // id
+    repeated PBProductCandidateWeight candidate_list   = 2;  // 商品候选列表   
+}
+
+//  每日商品等级筛选规则项
+message PBProductCandidateLv
+{
+    optional uint32       id                           = 1;  // id
+    optional uint32       min_level                    = 2;  // 最低等级
+    optional uint32       max_level                    = 3;  // 最高等级
+}
+
+message PBProductCandidateRule
+{
+    optional uint32       id                           = 1;  // 索引编号
+    repeated PBProductCandidateLv candidate_groups     = 2;  // 列表     
+}
+
+//  每日商城筛选规则表
+message PBShopDailyCandidateRuleList
+{
+    repeated PBProductCandidateRule         rules     = 1;  // 列表  
+}

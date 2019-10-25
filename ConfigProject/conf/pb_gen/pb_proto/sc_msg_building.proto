@@ -1,0 +1,192 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+import "enum_define.proto";
+
+
+//所有建筑信息请求
+message PBAllBuildingDataRequest
+{
+    option (OptionMessageId) = SC_MSG_AllBuildingData_Request;
+}
+
+//所有建筑信息响应
+message PBAllBuildingDataResponse
+{
+    option (OptionMessageId) = SC_MSG_AllBuildingData_Response;
+    repeated PBBuildingData buildings = 1;//所有建筑的信息
+    repeated uint32 area_list         = 2; //已解锁区域
+    repeated uint32 unlocked_camp_products = 3; //已解锁训练营产品
+}
+
+//建造建筑请求
+message PBBuildingBuildRequest
+{
+    option (OptionMessageId) = SC_MSG_BuildingBuild_Request;
+    optional uint32 pos         = 1; //位置
+    optional uint32 bid         = 2; //目标建筑Id
+    optional bool use_diamond  = 3; //是否使用钻石加速
+}
+
+//建造建筑响应
+message PBBuildingBuildResponse
+{
+    option (OptionMessageId) = SC_MSG_BuildingBuild_Response;
+    optional PBBuildingData building_data   = 1;//建筑信息
+    repeated PBResourceValue cost           = 2;//花费
+}
+
+//升级建筑请求
+message PBBuildingUpgradeRequest
+{
+    option (OptionMessageId) = SC_MSG_BuildingUpgrade_Request;
+    optional uint32 pos         = 1; //位置
+    optional uint32 bid         = 2; //目标建筑Id
+    optional bool use_diamond  = 3; //是否使用钻石加速
+}
+
+//升级建筑响应
+message PBBuildingUpgradeResponse
+{
+    option (OptionMessageId) = SC_MSG_BuildingUpgrade_Response;
+    optional PBBuildingData building_data   = 1;//建筑信息
+    repeated PBResourceValue cost           = 2;//花费
+}
+
+//建造加速请求
+message PBBuildingSpeedupRequest
+{
+    option (OptionMessageId) = SC_MSG_BuildingSpeedup_Request;
+    optional uint32 pos         = 1; //位置
+    optional uint32 bid         = 2; //目标建筑Id
+    optional bool use_diamond   = 3; //是否使用钻石加速
+}
+
+//建造加速响应
+message PBBuildingSpeedupResponse
+{
+    option (OptionMessageId) = SC_MSG_BuildingSpeedup_Response;
+    optional PBBuildingData building_data   = 1;//建筑信息
+    repeated PBResourceValue cost           = 2;//花费
+}
+
+//资源收取请求
+message PBBuildingResCollectRequest
+{
+    option (OptionMessageId) = SC_MSG_BuildingResCollect_Request;
+    optional uint32 pos         = 1; //位置
+    optional uint32 bid         = 2; //目标建筑Id
+}
+
+//资源收取响应
+message PBBuildingResCollectResponse
+{
+    option (OptionMessageId) = SC_MSG_BuildingResCollect_Response;
+    optional PBBuildingData building_data   = 1;//建筑信息
+    repeated PBResourceValue gain           = 2;//收取量
+}
+
+//单建筑信息同步请求（建筑建造/升级完成时）
+message PBBuildingSyncDataRequest
+{
+    option (OptionMessageId) = SC_MSG_BuildingSyncData_Request;
+    optional uint32 pos         = 1; //位置
+    optional uint32 bid         = 2; //目标建筑Id
+}
+
+//单建筑信息同步响应
+message PBBuildingSyncDataResponse
+{
+    option (OptionMessageId) = SC_MSG_BuildingSyncData_Response;
+    optional PBBuildingData building_data   = 1;//建筑信息
+}
+
+//区块解锁请求
+message PBBuildingAreaUnlockRequest
+{
+    option (OptionMessageId) = SC_MSG_BuildingAreaUnlock_Request;
+    optional uint32 area_id         = 1; //解锁区域
+}
+
+//区块解锁响应
+message PBBuildingAreaUnlockResponse
+{
+    option (OptionMessageId) = SC_MSG_BuildingAreaUnlock_Response;
+    repeated uint32 area_list         = 1; //已解锁区域
+}
+
+//训练营训练请求
+message PBBuildingCampTrainRequest
+{
+    option (OptionMessageId) = SC_MSG_BuildingCampTrain_Request;
+    optional uint32 pos         = 1;    //位置
+    optional uint32 bid         = 2;    //建筑Id
+    optional uint32 product_id  = 3;    //产品id
+    optional int32 product_num    = 4;    //生产数量 [-1: 研究， 0：无效值， >0: 训练]
+}
+
+//训练营训练响应
+message PBBuildingCampTrainResponse
+{
+    option (OptionMessageId) = SC_MSG_BuildingCampTrain_Response;
+    optional PBBuildingData building_data   = 1;//建筑信息
+    repeated PBResourceValue cost           = 2;//花费
+}
+
+//训练营收取请求
+message PBBuildingCampCollectRequest
+{
+    option (OptionMessageId) = SC_MSG_BuildingCampCollect_Request;
+    optional uint32 pos         = 1;    //位置
+    optional uint32 bid         = 2;    //建筑Id
+    optional uint32 product_id  = 3;    //产品id
+    optional int32 product_num    = 4;    //收取数量
+}
+
+//训练营收取响应
+message PBBuildingCampCollectResponse
+{
+    option (OptionMessageId) = SC_MSG_BuildingCampCollect_Response;
+    optional PBBuildingData building_data   = 1;//建筑信息
+    repeated PBItemValue items          = 2;//获取的卡牌
+}
+
+//训练营训练数量变化请求
+message PBCampTrainNumChgRequest
+{
+    option (OptionMessageId) = SC_MSG_CampTrainNumChg_Request;
+    optional uint32 pos         = 1;    //位置
+    optional uint32 bid         = 2;    //建筑Id
+    optional uint32 product_id  = 3;    //产品id
+    optional int32 num_change   = 4;    //数量变化
+    optional int32 num_final    = 5;    //变化后数量
+}
+
+//训练营训练数量变化响应
+message PBCampTrainNumChgResponse
+{
+    option (OptionMessageId) = SC_MSG_CampTrainNumChg_Response;
+    optional PBBuildingData building_data   = 1;//建筑信息
+    repeated PBResourceValue cost           = 2;//花费 或 返还
+}
+
+//训练营训练跳过请求
+message PBCampTrainSkipRequest
+{
+    option (OptionMessageId) = SC_MSG_CampTrainSkip_Request;
+    optional uint32 pos         = 1;    //位置
+    optional uint32 bid         = 2;    //建筑Id
+}
+
+//训练营训练跳过响应
+message PBCampTrainSkipResponse
+{
+    option (OptionMessageId) = SC_MSG_CampTrainSkip_Response;
+    optional PBBuildingData building_data   = 1;//建筑信息
+    repeated PBResourceValue cost           = 2;//花费
+}

@@ -1,0 +1,51 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_campaign.proto";
+import "google/api/annotations.proto";
+
+service DungeonService {
+
+  rpc GetAllCampaignData(FunPlus.Common.Config.PBAllCampaignDataRequest) returns (FunPlus.Common.Config.PBAllCampaignDataResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/dungeon/get-all-campaign-data"
+        body: "*"
+      };
+  }
+
+  rpc StartFight(FunPlus.Common.Config.PBStartFightRequest) returns (FunPlus.Common.Config.PBStartFightResponse) {
+      option (google.api.http) = {
+            post: "/api/v1/dungeon/start-fight"
+            body: "*"
+        };
+  }
+
+  rpc CampaignFinish(FunPlus.Common.Config.PBCampaignFinishRequest) returns (FunPlus.Common.Config.PBCampaignFinishResponse) {
+        option (google.api.http) = {
+          post: "/api/v1/dungeon/campaign-finish"
+          body: "*"
+        };
+    }
+
+    rpc ReceiveReward(FunPlus.Common.Config.PBReceiveRewardRequest) returns (FunPlus.Common.Config.PBReceiveRewardResponse) {
+        option (google.api.http) = {
+              post: "/api/v1/dungeon/receive-reward"
+              body: "*"
+          };
+    }
+
+  rpc GetCampaignUnlockData(FunPlus.Common.Config.PBCampaignUnlockDataRequest) returns (FunPlus.Common.Config.PBCampaignUnlockDataResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/dungeon/get-campaign-unlock-data"
+        body: "*"
+      };
+  }
+
+  rpc Revive(FunPlus.Common.Config.PBReviveRequest) returns (FunPlus.Common.Config.PBReviveResponse) {
+        option (google.api.http) = {
+              post: "/api/v1/dungeon/revive"
+              body: "*"
+          };
+    }
+}

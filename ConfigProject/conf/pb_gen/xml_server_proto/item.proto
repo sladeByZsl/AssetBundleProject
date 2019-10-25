@@ -1,0 +1,17 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+option go_package = "server/pkg/gen/rawdata";
+import "common/enum_define.proto";
+// 物品模板
+message PBItem
+{
+	optional uint32 id						= 1;	// ID
+	optional EItemType	type  				= 2;    // 主类型见EItemType
+	optional int32 sub_type					= 3;	// 对应的子类型
+	optional uint32 quality					= 4;	// 物品品质	
+	optional string name 					= 5;	// 物品名称
+	optional int32 isuse					= 6;	// 是否可使用	
+	optional int32 iscumulate				= 7;	// 是否可堆叠
+	optional int32 store_max_amount			= 8;	// 携带上限	
+	repeated uint32 reward_ids 				= 9;//奖励投放编号
+}

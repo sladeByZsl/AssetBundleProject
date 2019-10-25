@@ -1,0 +1,37 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_hero.proto";
+import "google/api/annotations.proto";
+
+service HeroService {
+
+    rpc GetAllHeroData (FunPlus.Common.Config.PBAllHeroDataRequest) returns (FunPlus.Common.Config.PBAllHeroDataResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/hero/get-all-data"
+            body: "*"
+        };
+    }
+
+    rpc UpgradeHero (FunPlus.Common.Config.PBHeroUpgradeRequest) returns (FunPlus.Common.Config.PBHeroUpgradeResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/hero/upgrade-hero"
+            body: "*"
+        };
+    }
+
+    rpc AscendHero (FunPlus.Common.Config.PBHeroAscendRequest) returns (FunPlus.Common.Config.PBHeroAscendResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/hero/ascend-hero"
+            body: "*"
+        };
+    }
+
+    rpc LockHero (FunPlus.Common.Config.PBHeroLockRequest) returns (FunPlus.Common.Config.PBHeroLockResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/hero/lock-hero"
+            body: "*"
+        };
+    }
+}

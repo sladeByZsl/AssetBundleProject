@@ -1,0 +1,87 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_building.proto";
+import "google/api/annotations.proto";
+
+service BuildingService {
+
+    rpc GetAllBuildingData (FunPlus.Common.Config.PBAllBuildingDataRequest) returns (FunPlus.Common.Config.PBAllBuildingDataResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/getalldata"
+            body: "*"
+        };
+    }
+
+    rpc BuildBuilding(FunPlus.Common.Config.PBBuildingBuildRequest) returns (FunPlus.Common.Config.PBBuildingBuildResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/build"
+            body: "*"
+        };
+    }
+
+    rpc UpgradeBuilding (FunPlus.Common.Config.PBBuildingUpgradeRequest) returns (FunPlus.Common.Config.PBBuildingUpgradeResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/upgrade"
+            body: "*"
+        };
+    }
+
+    rpc SpeedupBuilding (FunPlus.Common.Config.PBBuildingSpeedupRequest) returns (FunPlus.Common.Config.PBBuildingSpeedupResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/speedup"
+            body: "*"
+        };
+    }
+
+    rpc CollectResBuilding (FunPlus.Common.Config.PBBuildingResCollectRequest) returns (FunPlus.Common.Config.PBBuildingResCollectResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/res-collect"
+            body: "*"
+        };
+    }
+
+    rpc SyncDataBuilding (FunPlus.Common.Config.PBBuildingSyncDataRequest) returns (FunPlus.Common.Config.PBBuildingSyncDataResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/sync-data"
+            body: "*"
+        };
+    }
+
+    rpc AreaUnlockBuilding (FunPlus.Common.Config.PBBuildingAreaUnlockRequest) returns (FunPlus.Common.Config.PBBuildingAreaUnlockResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/area-unlock"
+            body: "*"
+        };
+    }
+
+    rpc CampTrainBuilding (FunPlus.Common.Config.PBBuildingCampTrainRequest) returns (FunPlus.Common.Config.PBBuildingCampTrainResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/camp-train"
+            body: "*"
+        };
+    }
+
+    rpc CampCollectBuilding (FunPlus.Common.Config.PBBuildingCampCollectRequest) returns (FunPlus.Common.Config.PBBuildingCampCollectResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/camp-collect"
+            body: "*"
+        };
+    }
+
+    rpc ChangeCampTrainNumBuilding (FunPlus.Common.Config.PBCampTrainNumChgRequest) returns (FunPlus.Common.Config.PBCampTrainNumChgResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/change-camp-train-num"
+            body: "*"
+        };
+    }
+
+    rpc SkipCampTrainBuilding (FunPlus.Common.Config.PBCampTrainSkipRequest) returns (FunPlus.Common.Config.PBCampTrainSkipResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/building/skip-camp-train"
+            body: "*"
+        };
+    }
+
+}

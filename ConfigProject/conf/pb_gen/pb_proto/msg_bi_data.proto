@@ -1,0 +1,49 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+
+// 登陆BI
+message PBBIPlayerLogin
+{
+    optional PBBILoginAttrs attrs = 1;
+    //optional string ev  = 2; // 事件类型: "kpi"
+    //optional string eid = 3; //
+    optional string pid = 4; // LiveData项目id
+    optional string sid = 5; // session id（rum的sessionid）
+    //optional string uid = 6; //
+    //optional string rid = 7; //
+    optional string ts  = 8; // 客户端时间（UTC秒数）
+    //optional string sts = 9; // 服务器时间（UTC秒数）
+}
+
+message PBBILoginAttrs
+{
+    optional string country           = 1;  // 国家
+    optional string game_version      = 2;  // 游戏版本号
+    optional string os                = 3;  // 操作系统："android"，"ios"
+    optional string device_id         = 4;  // 设备唯一ID
+    optional string gaid              = 5;  // GAID
+    optional string os_version        = 6;  // 操作系统版本
+    optional string idfa              = 7;  // IDFA
+    //optional string fpid_create_ts    = 8;  // fpid账号创建时间（UTC毫秒），客户端sdk收到newUser的回调里有
+    optional string client_uuid       = 9;  // 客户端账号ID
+    optional string device_type       = 10; // 设备类型
+    optional string res_version       = 11; // 资源版本号
+    optional string time_zone         = 12; // 时区
+    optional string device_lang       = 13; // 设备语言
+    optional string pkg_channel       = 14; // 包渠道
+    //optional string fpid              = 15; // 服务器账号ID
+    optional string sdk_version       = 16; // sdk版本号
+    optional string imei              = 17; // IMEI
+    optional string msg_type          = 18; // 事件子类型："login"
+    optional string idfv              = 19; // IDFV
+    optional string lang              = 20; // 包语言
+    optional string android_id        = 21; // Android ID
+    optional string app_id            = 22; // 项目ID
+    optional string app_install_ts    = 23; // 包安装时间（UTC毫秒）
+    optional string rum_version       = 24; // rum版本号
+    //optional string roleid            = 25; // 玩家角色ID
+}

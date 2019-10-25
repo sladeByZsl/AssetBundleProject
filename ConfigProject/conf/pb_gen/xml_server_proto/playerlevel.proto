@@ -1,0 +1,19 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+option go_package = "server/pkg/gen/rawdata";
+
+// 玩家等级
+message PBPlayerLevel
+{
+	optional int32 id						= 1;	// ID等级
+	optional int32 exp				        = 2;    // 升级所需经验
+	optional int32 energy_max				= 3;	// 体力上限
+	optional int32 team_cost				= 4;	// 队伍最大cost
+	optional int32 package					= 5;	// 背包数量	
+}
+
+//  玩家等级列表
+message PBPlayerLevelList
+{
+	repeated PBPlayerLevel data		    = 1;
+}

@@ -1,0 +1,83 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+import "enum_define.proto";
+
+
+///
+/// TODO: push message 都需要在router.go文件里注册
+///
+
+// 玩家数值资源同步推送
+message PBPlayerResourceSyncPush
+{
+    option (OptionMessageId) = SC_MSG_PlayerResourceSync_Push;
+    repeated PBResourceValue resources = 1; // 玩家资源
+}
+
+// 获得英雄卡牌
+message PBPlayerGainHeroCardPush
+{
+    option (OptionMessageId) = SC_MSG_PlayerGainHeroCard_Push;
+    repeated PBHeroCardData heroes = 1; // 英雄卡牌
+}
+
+// 已解锁训练营项目push
+message PBUnlockedCampProductPush
+{
+    option (OptionMessageId) = SC_MSG_UnlockedCampProduct_Push;
+    repeated uint32 unlocked_camp_products = 1; //已解锁训练营产品
+}
+
+// 副本已解锁的章节
+message PBUnlockedDungeonPush
+{
+	option (OptionMessageId) = SC_MSG_UnlockedDungeon_Push;
+    repeated uint32 chapter_ids         = 1; //已解锁列表
+}
+
+// 同步物品信息
+message PBPlayerItemSyncPush
+{
+    option (OptionMessageId) = SC_MSG_PlayerItemSync_Push;
+    repeated PBItemData items = 1; // 物品
+}
+
+// debug日志
+message PBDebugLogPush
+{
+    option (OptionMessageId) = SC_MSG_DebugLog_Push;
+    repeated string log = 1; // debug日志
+}
+
+// 任务推送
+message PBTaskPush
+{
+    optional bool is_remove = 1;
+    optional ESTaskStatus task_status = 2[default=TaskStatus_Inactive];
+    optional PBTaskData task_data = 3;
+}
+
+message PBPlayerTaskPush
+{
+    option (OptionMessageId) = SC_MSG_PlayerTaskPush;
+    repeated PBTaskPush data_list = 1;
+}
+
+// 成就推送
+message PBAchievementDataPush
+{
+    option (OptionMessageId) = SC_MSG_AchievementDataPush;
+    repeated PBAchievementData achievementData = 1;
+}
+
+// 英雄背包已满提示
+message PBHeroPackageAlreadyFullPush
+{
+    option (OptionMessageId) = SC_MSG_HeroPackageAlreadyFullPush;
+}

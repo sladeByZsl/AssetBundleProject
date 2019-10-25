@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameConfig>
+	<!--
+	    暂时没什么用，待处理
+		protoPath：proto文件地址
+		codePath：proto生成的cs文件地址		
+	-->
+	<GameConfigProtos>
+		<GameConfigProto protoPath="data_proto" codePath="Assets/client-code/config/proto"/>
+	</GameConfigProtos>
+	
+	<!--
+		gameConfigSettingPath：GameConfigSetting生成地址 暂未处理
+		xmlPath：xml配置文件地址
+		xmlSheetPath：xmlsheet配置文件地址
+		detailGameConfigPath：自动生成文件，将xml和xmlsheet详细目录整理到此文件，作用于在编辑模式下直接读取xml文件
+		datPath：打包生成的dat文件地址
+		dataLanguageDir：国际化文本存放目录
+	-->
+	<GameConfigData gameConfigSettingPath="Assets/client-code/config/GameConfigSetting.cs" 
+					xmlPath="config/config_xml.xml"
+					xmlSheetPath="config/config_xmlsheet.xml"
+					detailGameConfigPath="config/detail_game_config.xml"
+					datPath="data_dat"
+					/>
+</GameConfig>

@@ -1,0 +1,20 @@
+syntax = "proto3";
+option optimize_for = SPEED;
+
+package svrpb;
+
+option go_package = "server/pkg/gen/svrpb";
+
+
+// db里保存的结构
+message DBTaskDataList
+{
+    repeated DBTaskData data_list = 2;
+}
+
+message DBTaskData
+{
+    uint32 task_id     = 1;
+    int64 deliver_time = 2; // 任务发放时间
+    int64 finish_time  = 3; // 任务结束时间
+}

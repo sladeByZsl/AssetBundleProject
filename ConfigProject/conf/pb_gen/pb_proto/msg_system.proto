@@ -1,0 +1,82 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+
+enum EPLogLevel
+{
+	PLOG_LEVEL_ERROR     = 1;
+	PLOG_LEVEL_ASSERT    = 2;
+	PLOG_LEVEL_WARNING   = 4;
+	PLOG_LEVEL_LOG       = 8;
+	PLOG_LEVEL_EXCEPTION = 16;
+}   
+
+enum ELogOutputMode
+{
+	LogOutput_Mode_None = 1;
+	LogOutput_Mode_File = 2;
+	LogOutput_Mode_Net = 4;
+}
+
+enum ELogModeType
+{
+	LogMode_Type_Unity = 0;       // Unity异常;
+	LogMode_Type_Device = 1;      // 设备信息;
+	LogMode_Type_Net = 2;         // 网络log;
+	LogMode_Type_Update = 3;      // 更新;
+	LogMode_Type_Load = 4;        // 资源加载;
+	LogMode_Type_Task = 5;        // 任务;
+	LogMode_Type_Battle = 6;      // 战斗;
+	LogMode_Type_Team = 7;        // 队伍;
+	LogMode_Type_Union = 8;       // 工会;
+	LogMode_Type_Guide = 9;       // 新手引导;
+	LogMode_Type_Hero = 10;       //英雄系统
+	LogMode_Type_Building = 11;   // 建筑;
+	LogMode_Type_Editor = 12;     //match3Editor
+	LogMode_Type_Player = 13;     //玩家数据
+	LogMode_Type_Custom1 = 100;   // 自定义;
+	LogMode_Type_Custom2 = 101;   // 自定义;
+	LogMode_Type_Custom3 = 102;   // 自定义;
+	LogMode_Type_Custom4 = 103;   // 自定义;
+	LogMode_Type_Custom5 = 104;   // 自定义;
+	LogMode_Type_Custom6 = 105;   // 自定义;
+	LogMode_Type_Custom7 = 106;   // 自定义;
+	LogMode_Type_Custom8 = 107;   // 自定义;
+	LogMode_Type_Custom9 = 108;   // 自定义;
+
+	LogMode_Type_Count = 109;
+}
+
+message PBPingMessageRequest
+{
+	option (OptionMessageId) = MSG_Ping_Request;
+	optional double send_time = 1;
+}
+
+message PBPingMessageResponse
+{
+	option (OptionMessageId) = MSG_Ping_Response;
+	optional double  send_time   = 1;
+	optional double  servertime  = 2;
+}
+
+
+
+
+message PBLogSettingRequest
+{
+	option (OptionMessageId) = MSG_LogSetting_Request;
+}
+
+message PBLogSettingRespose
+{
+	option (OptionMessageId) = MSG_LogSetting_Response;
+	repeated int32   enable_mode_list   = 1;
+	optional uint32  log_level_site     = 2;
+	optional uint32  log_output_site    = 3;
+	optional bool    unity_log_open     = 4;
+}

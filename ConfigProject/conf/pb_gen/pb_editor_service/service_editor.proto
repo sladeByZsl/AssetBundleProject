@@ -1,0 +1,120 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "msg_editor.proto";
+import "google/api/annotations.proto";
+
+service EditorService {
+  rpc Sync (FunPlus.Common.Config.PBM3LevelListRequest) returns (FunPlus.Common.Config.PBM3LevelListResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/sync"
+      body: "*"
+    };
+  }
+
+  rpc Create (FunPlus.Common.Config.PBM3LevelIdCreateRequest) returns (FunPlus.Common.Config.PBM3LevelIdCreateResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/create"
+      body: "*"
+    };
+  }
+
+  rpc Verify (FunPlus.Common.Config.PBM3LevelIdVerifyRequest) returns (FunPlus.Common.Config.PBM3LevelIdVerifyResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/verify"
+      body: "*"
+    };
+  }
+
+  rpc Setting (FunPlus.Common.Config.PBM3LevelSettingRequest) returns (FunPlus.Common.Config.PBM3LevelSettingResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/setting"
+      body: "*"
+    };
+  }
+
+  rpc Lock (FunPlus.Common.Config.PBM3LevelLockRequest) returns (FunPlus.Common.Config.PBM3LevelLockResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/lock"
+      body: "*"
+    };
+  }
+
+  rpc Unlock (FunPlus.Common.Config.PBM3LevelUnlockRequest) returns (FunPlus.Common.Config.PBM3LevelUnlockResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/unlock"
+      body: "*"
+    };
+  }
+
+  rpc Delete (FunPlus.Common.Config.PBM3LevelDeleteRequest) returns (FunPlus.Common.Config.PBM3LevelDeleteResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/delete"
+      body: "*"
+    };
+  }
+
+  rpc Copy (FunPlus.Common.Config.PBM3LevelCopyRequest) returns (FunPlus.Common.Config.PBM3LevelCopyResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/copy"
+      body: "*"
+    };
+  }
+
+  rpc Move (FunPlus.Common.Config.PBM3LevelMoveRequest) returns (FunPlus.Common.Config.PBM3LevelMoveResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/move"
+      body: "*"
+    };
+  }
+
+  rpc CopyLock (FunPlus.Common.Config.PBM3LevelCopyLockRequest) returns (FunPlus.Common.Config.PBM3LevelCopyResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/copy_lock"
+      body: "*"
+    };
+  }
+
+  rpc ModifyDesc (FunPlus.Common.Config.PBM3LevelModifySyncRequest) returns (FunPlus.Common.Config.PBM3LevelUnlockResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/modify_desc"
+      body: "*"
+    };
+  }
+
+  rpc Import (FunPlus.Common.Config.PBM3LevelImportRequest) returns (FunPlus.Common.Config.PBM3LevelImportResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/import"
+      body: "*"
+    };
+  }
+
+  rpc BatchDelete (FunPlus.Common.Config.PBM3LevelBatchDeleteRequest) returns (FunPlus.Common.Config.PBM3LevelBatchDeleteResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/batch_delete"
+      body: "*"
+    };
+  }
+
+  rpc BatchUnlock (FunPlus.Common.Config.PBM3LevelBatchUnlockRequest) returns (FunPlus.Common.Config.PBM3LevelBatchUnlockResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/batch_unlock"
+      body: "*"
+    };
+  }
+
+  rpc BatchCopy (FunPlus.Common.Config.PBM3LevelBatchCopyRequest) returns (FunPlus.Common.Config.PBM3LevelBatchCopyResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/batch_copy"
+      body: "*"
+    };
+  }
+
+  rpc BatchMove (FunPlus.Common.Config.PBM3LevelBatchMoveRequest) returns (FunPlus.Common.Config.PBM3LevelBatchMoveResponse) {
+     option (google.api.http) = {
+      post: "/api/v1/batch_move"
+      body: "*"
+    };
+  }
+}

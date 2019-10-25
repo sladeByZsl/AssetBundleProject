@@ -1,0 +1,27 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+import "common/enum_define.proto";
+option go_package = "server/pkg/gen/rawdata";
+
+
+// 任务基础
+message PBTask
+{
+	optional uint32 id					= 1;  // id
+	optional string name				= 2;  // 任务名称
+	optional string desc				= 3;  // 任务描述
+	optional ESTaskType task_type		= 4;  // 任务类型
+	optional int32  accept_level		= 5;  // 接取等级
+	repeated uint32 accept_condition	= 6;  // 其他接取条件
+	repeated uint32 accept_action       = 7;  // 接取时的action
+	optional int32  task_sort           = 8;  // 排序号
+	optional string task_icon			= 9;  // 任务图标
+	optional string dest_link			= 10; // 前往跳转链接(UI界面)
+	repeated uint32 finish_condition	= 11; // 完成条件
+	repeated uint32 finish_action 		= 12; // 完成action
+	repeated uint32 next_task 			= 13; // 后置任务
+	repeated uint32 reward 				= 14; // 奖励内容
+}
+
+
+

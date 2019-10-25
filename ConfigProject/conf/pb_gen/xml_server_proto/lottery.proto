@@ -1,0 +1,46 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+import "common/enum_define.proto";
+option go_package = "server/pkg/gen/rawdata";
+
+//抽卡次数重置方式
+enum ELotteryTimesResetType
+{
+	NotReset = 0; 		// 不重置
+	Day  	 = 1; 		// 每日重置
+	Activity = 2; 	//每期活动重置
+}
+
+// 抽卡模板
+message PBLottery
+{
+	optional int32 id						= 1;	// ID
+	repeated uint32 card_groupid			= 2;	// 索引抽卡组[begin,end]
+	optional int32	times_reset_type        = 3;    // 重置方式见ELotteryTimesResetType
+	optional uint32 cost_one				= 4;	// 单抽价格
+	optional uint32 cost_ten				= 5;	// 十连价格
+	optional uint32 item_id					= 6;	// 代币ID
+	optional uint32 floors_times			= 7;	// 保底次数
+	optional uint32 dropshow_pool			= 8;	// 奖池预览
+//	optional string dropshow_rate			= 9;	// 概率文字
+//	optional float dropshow_percent			= 10;	// 概率
+	optional uint32 floors_id				= 11;	// 保底配置卡牌id
+	optional uint32 gift_daily_times		= 12;	// 每日赠送次数
+	optional ESResourceType resource_type   = 13;   // 消耗资源类型
+	optional uint32 floors_dropid	   	    = 14;	// 保底掉落id
+	optional int32	gift_daily_circle       = 15;    // 每日赠送间隔周期sec
+}
+
+//抽卡列表
+message PBLotteryList
+{
+	repeated PBLottery lottery_list		    = 1;
+}
+
+// 抽卡卡组
+message PBLotteryCardGroup
+{
+	optional uint32 id						= 1;	// ID
+	optional uint32 times					= 2;	// 抽取次数
+	optional uint32 drop_id					= 3;	// 掉落组id
+}

@@ -1,0 +1,50 @@
+syntax = "proto3";
+option optimize_for = SPEED;
+
+package svrpb;
+
+option go_package = "server/pkg/gen/svrpb";
+
+
+// 登陆BI
+message BIPlayerLogin
+{
+    BILoginAttribute attrs = 1;
+    string ev  = 2; // 事件类型: "kpi"
+    string eid = 3; //
+    string pid = 4; // LiveData项目id
+    string sid = 5; // session id
+    string uid = 6; //
+    string rid = 7; //
+    string ts  = 8; // 客户端时间（UTC秒数）
+    string sts = 9; // 服务器时间（UTC秒数）
+}
+
+message BILoginAttribute
+{
+    string country           = 1;  // 国家
+    string game_version      = 2;  // 游戏版本号
+    string os                = 3;  // 操作系统："android"，"ios"
+    string device_id         = 4;  // 设备唯一ID
+    string gaid              = 5;  // GAID
+    string os_version        = 6;  // 操作系统版本
+    string idfa              = 7;  // IDFA
+    string fpid_create_ts    = 8;  // 服务器账号创建时间（UTC毫秒）
+    string client_uuid       = 9;  // 客户端账号ID
+    string device_type       = 10; // 设备类型
+    string res_version       = 11; // 资源版本号
+    string time_zone         = 12; // 时区
+    string device_lang       = 13; // 设备语言
+    string pkg_channel       = 14; // 包渠道
+    string fpid              = 15; // 服务器账号ID
+    string sdk_version       = 16; // sdk版本号
+    string imei              = 17; // IMEI
+    string msg_type          = 18; // 事件子类型："login"
+    string idfv              = 19; // IDFV
+    string lang              = 20; // 包语言
+    string android_id        = 21; // Android ID
+    string app_id            = 22; // 项目ID
+    string app_install_ts    = 23; // 包安装时间（UTC毫秒）
+    string rum_version       = 24; // rum版本号
+    string roleid            = 25; // 玩家角色ID
+}

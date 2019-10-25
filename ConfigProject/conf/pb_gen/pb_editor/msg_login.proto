@@ -1,0 +1,29 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+
+import "level_list.proto";
+
+
+//------------------------------------------------------------
+// 编辑器登录请求
+message PBEditorLoginRequest
+{
+	option (OptionMessageId) = MSG_EditorLogin_Request;
+	optional string account	= 1;//用户名
+	optional string passwd  = 2;//密码
+}
+
+// 编辑器登录回复
+message PBEditorLoginResponse
+{
+	option (OptionMessageId) = MSG_EditorLogin_Response;
+	optional string token       = 1;//确定客户端设备的token
+	optional ERole role         = 2[default = Guest];//角色
+	optional string id_prefix   = 3;//id前缀
+	optional string account     = 4;//账户
+}

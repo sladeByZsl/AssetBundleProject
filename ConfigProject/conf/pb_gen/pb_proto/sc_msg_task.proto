@@ -1,0 +1,69 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+
+///
+/// 任务系统
+///
+
+//请求全部任务
+message PBGetAllTaskDataRequest
+{
+    option (OptionMessageId) = SC_MSG_GetAllTaskDataRequest;
+}
+
+//全部任务响应
+message PBGetAllTaskDataResponse
+{
+    option (OptionMessageId) = SC_MSG_GetAllTaskDataResponse;
+    repeated PBTaskDataList tasks = 1;
+}
+
+// 接取任务
+message PBAcceptTaskRequest
+{
+    option (OptionMessageId) = SC_MSG_AcceptTaskRequest;
+    optional uint32 task_id = 1;
+}
+
+message PBAcceptTaskResponse
+{
+    option (OptionMessageId) = SC_MSG_AcceptTaskResponse;
+    optional uint32 task_id = 1;
+}
+
+// 完成任务
+message PBFinishTaskRequest
+{
+    option (OptionMessageId) = SC_MSG_FinishTaskRequest;
+    optional uint32 task_id = 1;
+}
+
+message PBFinishTaskResponse
+{
+    option (OptionMessageId) = SC_MSG_FinishTaskResponse;
+    optional uint32 task_id          = 1; // unique task id
+    repeated PBItemValue reward_data = 2; // reward data
+}
+
+/*
+// 领取任务奖励请求
+message PBGainTaskRewardRequest
+{
+    option (OptionMessageId) = SC_MSG_GainTaskRewardRequest;
+    optional uint32 task_id  = 1;    // unique task id
+}
+
+// 领取任务奖励响应
+message PBGainTaskRewardResponse
+{
+    option (OptionMessageId) = SC_MSG_GainTaskRewardResponse;
+    optional PBTaskData task_data     = 1;    // task data
+    repeated PBItemValue reward_data  = 2;    // reward data
+}
+*/

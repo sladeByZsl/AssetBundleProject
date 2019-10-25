@@ -1,0 +1,16 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_resource.proto";
+import "google/api/annotations.proto";
+
+service ResourceService {
+
+  rpc GetAllResourceData(FunPlus.Common.Config.PBAllResourceDataRequest) returns (FunPlus.Common.Config.PBAllResourceDataResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/dungeon/get-all-resource-data"
+        body: "*"
+      };
+  } 
+}

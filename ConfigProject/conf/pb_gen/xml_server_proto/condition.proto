@@ -1,0 +1,16 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+import "common/enum_define.proto";
+option go_package = "server/pkg/gen/rawdata";
+
+
+// Condition 基础
+message PBCondition
+{
+	optional uint32 cd_id						= 1;// id
+	optional ESConditionType cd_conditionType	= 2[default = ConditionType_BuildingLimit];//Condition类型
+	optional string cd_factor1					= 3;//参数1
+	optional string cd_factor2					= 4;//参数2
+	optional string cd_factor3					= 5;//参数3
+}
+

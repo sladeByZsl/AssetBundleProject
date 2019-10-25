@@ -1,0 +1,38 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+
+//请求物品数据信息
+message PBAllItemDataRequest
+{
+    option (OptionMessageId) = SC_MSG_AllItemData_Request;
+}
+
+
+//响应物品数据信息
+message PBAllItemDataResponse
+{
+    option (OptionMessageId) = SC_MSG_AllItemData_Response;   
+    repeated  PBItemData datas = 1;
+}
+
+//请求使用物品
+message PBItemUseRequest
+{
+    option (OptionMessageId) = SC_MSG_UseItem_Request;
+    optional uint32 id 	  = 1;	// 物品唯一ID
+    optional uint32 count = 2;	// 使用物品数量
+}
+
+//响应使用物品
+message PBItemUseResponse
+{
+    option (OptionMessageId) = SC_MSG_UseItem_Response;
+    optional uint32 id 	  	  = 1;	// ID
+    repeated PBItemValue data = 2;  // 奖励信息
+}

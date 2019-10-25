@@ -1,0 +1,9 @@
+syntax = "proto3";
+option optimize_for = SPEED;
+
+package svrpb;
+
+option go_package = "server/pkg/gen/svrpb";
+
+
+

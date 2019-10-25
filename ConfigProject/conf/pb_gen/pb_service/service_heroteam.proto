@@ -1,0 +1,23 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_hero.proto";
+import "google/api/annotations.proto";
+
+service HeroTeamService {
+
+    rpc GetAllHeroTeamData (FunPlus.Common.Config.PBAllHeroTeamDataRequest) returns (FunPlus.Common.Config.PBAllHeroTeamDataResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/hero/get-all-team-data"
+            body: "*"
+        };
+    }
+
+    rpc SaveHeroTeam (FunPlus.Common.Config.PBHeroTeamSaveRequest) returns (FunPlus.Common.Config.PBHeroTeamSaveResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/hero/save-team"
+            body: "*"
+        };
+    }
+}

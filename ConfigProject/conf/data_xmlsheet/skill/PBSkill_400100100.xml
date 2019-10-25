@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PBSkill s_id="400100100" is_attack="0" s_name="PBSkillTitle_400100100" s_icon="others_icon_skill__15" s_timeline_id="401100100">
+  <s_desc>PBSkillDesc_400100101</s_desc>
+  <s_desc>PBSkillDesc_400100102</s_desc>
+  <s_desc>PBSkillDesc_400100103</s_desc>
+  <s_desc>PBSkillDesc_400100104</s_desc>
+  <s_desc>PBSkillDesc_400100105</s_desc>
+  <s_desc>PBSkillDesc_400100106</s_desc>
+  <s_desc>PBSkillDesc_400100107</s_desc>
+  <s_desc>PBSkillDesc_400100108</s_desc>
+</PBSkill>

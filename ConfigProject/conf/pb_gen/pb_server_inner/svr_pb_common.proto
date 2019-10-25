@@ -1,0 +1,15 @@
+syntax = "proto3";
+option optimize_for = SPEED;
+
+package svrpb;
+
+option go_package = "server/pkg/gen/svrpb";
+
+
+// 掉落场景，关系到是否对背包上限进行检查
+enum DropCaller
+{
+    Default = 0; // 默认掉落
+    Dungeon = 1; // 副本掉落
+    TrainingCamp = 2; // 训练营掉落
+}

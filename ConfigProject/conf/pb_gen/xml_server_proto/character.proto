@@ -1,0 +1,60 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+import "common/enum_define.proto";
+option go_package = "server/pkg/gen/rawdata";
+
+enum EAnimationType
+{
+    EAT_None		= 0;
+    EAT_Appear		= 1;
+    EAT_Ideal		= 2;
+    EAT_Attack		= 3;
+    EAT_Hit			= 4;
+    EAT_Death		= 5;
+}
+
+// 单个任务总流程
+message PBCharacter
+{
+    optional uint32 c_id				= 1; // 人物ID
+    optional string c_name				= 2; // 人物名称
+    optional string c_desc				= 3; // 人物描述
+    optional ECharType c_type 			= 4[default = ECT_None]; // 人物类型
+    optional int32 base_atk 			= 5; // 基础攻击
+    optional int32 base_def 			= 6; // 基础防御
+    optional int32 base_hp 				= 7; // 基础生命
+    optional int32 base_crit 			= 8; // 基础暴击
+    optional int32 base_miss 			= 9; // 基础闪避
+    repeated float uplevel_atk 			= 10; // 升级增加攻击
+    repeated float uplevel_def 			= 11; // 升级增加防御
+    repeated float uplevel_hp 			= 12; // 升级增加生命
+    repeated float adv_atk 				= 13; // 进阶增加攻击
+    repeated float adv_def 				= 14; // 进阶增加防御
+    repeated float adv_hp 				= 15; // 进阶增加生命
+    optional int32 n_atk_id				= 16; // 普通攻击ID
+    optional int32 skill_id				= 17; // 当是时卡牌技能ID,主要是对英雄而言
+    optional int32 res_id				= 18; // 资源ID
+    optional int32 eff_id				= 19; // 特效ID
+    repeated int32 n_atk_freq			= 20; // 普通攻击攻击频率
+    optional int32 get_anger			= 21; // 每个棋子获得怒气
+    optional bool  show_angerbar        = 22; // 是否显示怒气条（1代表有）
+    optional int32 lattice_number       = 23; // 所占格子数量
+    optional int32 mp					= 25; // 怒气值
+    optional int32 n_skill_id           = 26; // 技能id，是实体的时候
+    optional int32 base_skill_crit      = 27; // 基础技能暴击
+    optional int32 base_skill_miss      = 28; // 基础技能mis
+    optional int32 base_hit             = 30; // 基础普攻命中
+    optional int32 skill_hit            = 31; // 技能命中
+    optional int32 c_rank           	= 32; // 人物星级
+    optional int32 adv_max				= 33; // 阶级上线
+    optional string foot_effect			= 34; // 脚底光圈特效
+    repeated int32 adv_cost				= 35; // 进阶增加Cost
+    repeated float star_atk			    = 36; // 升星成长率_攻击
+    repeated float star_def				= 37; // 升星成长率_防御
+    repeated float star_hp				= 38; // 升星成长率_生命
+    repeated int32 star_cost			= 39; // 升星增加_cost
+    optional EColor color_hero          = 40; // 角色属性
+    optional bool is_finished           = 41; // 是否完成
+    optional bool isTrainerHero         = 42; // 是否经验卡
+    optional int32 trainerExtraExp      = 43; // 额外经验
+}

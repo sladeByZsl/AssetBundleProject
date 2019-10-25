@@ -1,0 +1,246 @@
+
+syntax = "proto2";
+package FunPlus.Common.Config;
+import "enum_define.proto";
+//数据字典
+//chip 棋子
+//cell 单元格
+//level 关卡
+//weight 权重
+//grade 等级，如棋子等级
+
+// 棋子定义表
+message PBChipDefinition
+{
+	repeated PBChip chips = 1;
+
+	//repeated PBChipProperties properties = 2;//棋子逻辑属性
+
+	//repeated PBChipShowLayer show_layers = 3;//棋子显示层级
+
+	//repeated PBChipDestroyPriority destroy_prioritys = 4;//销毁优先级
+}
+message PBChipPropertyDefinition 
+{
+	repeated PBChipProperties properties = 1;//棋子逻辑属性
+}
+
+message PBChipDestroyPrioritys 
+{
+    repeated PBChipDestroyPriority prioritys = 1;
+}
+
+message PBChipShowLayers 
+{
+    repeated PBChipShowLayer layers = 1;
+}
+message PBChipGroupMap 
+{
+    repeated string map = 1;
+} 
+
+//技能对应数值类型
+enum  ESValeType
+{
+	ES_None		= 0;
+	ES_ATK			= 1;//攻击
+	ES_DEFEND  	= 2;//防御
+}
+
+//棋子信息
+message PBChip
+{
+	optional uint32 chip_id				= 1;//棋子ID
+	optional EChipType chip_type		= 2[default = CT_None];//棋子类型
+	optional EColor	color				= 3[default = Color_None];//棋子颜色
+	optional EBonusType bonus_type		= 4[default = Bonus_None];//棋子颜色
+	optional string name 				= 5;//棋子名称，可用于tip显示
+	optional uint32 block_grade 		= 6;//棋子阻挡等级
+	
+	repeated string grade_resource		= 10;//如果Icon分多个等级，依次配置多个等级的资源
+	
+	optional uint32 group_index			= 7;//当前棋子所属互斥组索引
+
+	optional PBChipProperties properties= 9;//棋子逻辑属性
+
+	optional uint32 show_layer			= 11;//棋子显示层级
+	optional uint32 destroy_priority	= 12;//销毁优先级
+
+	optional uint32 downgrade_chip_id	= 13;//降级后未销毁时释放的棋子ID，用于目标收集
+	optional uint32 collapsed_chip_id	= 14;//降级到0,销毁后释放的棋子ID，用于目标收集
+
+	optional bool collect_anim			= 15;//是否播放收集动画
+
+	optional PBChipGrid  Echipgrid      = 16[default=e_None];//是否占多个格子，根据枚举判断占格位置
+
+	optional string destroy_event_id	= 17; //消除的音效事件id 
+	optional string skin				= 18; //prefab初始的皮肤
+}
+
+//棋子类型
+enum EChipType
+{
+	CT_None 			= 0;//无效类型
+	CT_Color 			= 1;//带颜色属性可match的
+	CT_Bonus 			= 2;//奖励棋子： 炸弹、火箭、飞机、彩虹球等
+	CT_Block			= 3;//阻挡
+	CT_Wall				= 4;//墙
+	CT_Portal			= 5;//传送点入口（cell固定属性）
+	CT_PortalIn			= 6;//传送点入口（cell固定属性）
+	CT_PortalOut		= 7;//传送点出口（cell固定属性）
+	CT_Gravity			= 8;//重力（cell固定属性）
+	CT_TargetOnly		= 9;//目标地毯
+	CT_BirthPoint		= 10;//普通出生点（cell固定属性）
+	CT_BirthPointWeight = 11;//权重掉落的出生点（cell固定属性）
+	CT_BirthPointLoop	= 12;//顺序循环掉落的出生点（cell固定属性）
+	CT_Background		= 13;//底板（cell固定属性）
+	CT_Collection		= 14;//收集物
+	CT_Case2x2			= 15;//2x2的存储框，位置存储最小坐标点
+	CT_CollectionEntry	= 16;//收集物入口（cell固定属性）
+	CT_Camera			= 17;//摄像机
+	CT_Area				= 18;//区域（cell固定属性）
+	CT_NoReshuffle		= 19;//禁止洗牌（cell固定属性）
+	CT_NoMatch			= 20;//禁止匹配（cell固定属性）
+	CT_NoBoosters		= 21;//禁止使用加速器（cell固定属性）
+	CT_InitRandom		= 22;//初始化随机棋子（cell固定属性）
+	CT_InitGroup		= 23;//初始化分组棋子（cell固定属性）
+	CT_Pipe				= 24;//管道，存储方式和墙一致
+	CT_Case1x2			= 25;//竖向的占2个格子的阻挡
+	CT_Case2x1			= 26;//横向的占2个格子的阻挡
+	CT_Mailbox			= 27;//邮箱
+	//CT_BlockChain		= 28;//阻挡锁链
+	CT_RedCarpet		= 29;//红地毯上移动的物体
+	CT_RedCarpetPath	= 30;//红地毯的路线
+	CT_RedCarpetEnd		= 62;//红地毯的终点
+	CT_Leaves			= 31;//覆盖物
+	CT_Gnomes 			= 32;//覆盖物下的搜集物
+	CT_Recycle			= 33;//贴在普通棋子上的修饰物
+	CT_Cookie			= 34;//饼干，可以单独设置掉落概率
+	CT_Foam				= 35;//肥皂泡，可以自增长
+	CT_Copy				= 36;//编辑器拷贝粘贴的功能
+	CT_ConveyorBelt		= 37;//传送带
+	CT_ConveyorBeltLink	= 38;//传送带链接工具
+	CT_Jelly			= 39;//果冻
+	CT_Cherries			= 40;//樱桃
+	CT_Henhouse			= 41;//鸡窝
+	CT_HairBall			= 42;//毛球
+	CT_Letter		    = 43;//多个格子的信封
+	CT_Fox              =44;//狐狸
+}
+
+////颜色
+//enum EColor
+//{
+//	Color_None	= 0;
+//	Color_Red	= 1;//红
+//	Color_Green	= 2;//绿
+//	Color_Yellow= 3;//黄
+//	Color_Blue	= 4;//蓝
+//	Color_Purple= 5;//紫
+//	Color_Pink  = 6;//粉色
+//	Color_Orange= 7;//橘色
+//}
+
+//奖励类型，为统一名称，以后替换炸弹类型
+enum EBonusType
+{
+	Bonus_None		= 0;//无
+	Bonus_Kite		= 1;//风筝
+	Bonus_Rainbow	= 2;//彩虹球
+}
+
+// 方向
+enum ESide
+{
+	Side_None		= 8;
+
+	Side_Bottom		= 0;
+	Side_TopRight	= 1;
+	Side_Right		= 2;
+	Side_BottomRight= 3;
+
+	Side_Top		= 4;
+	Side_BottomLeft	= 5;
+	Side_Left		= 6;
+	Side_TopLeft	= 7;
+}
+
+// 阻挡类型
+enum EBlockType
+{
+	BT_None		= 0;
+	BT_Block	= 1;
+	BT_Branch	= 2;
+	BT_Weed		= 3;
+	BT_BrushWood= 4;
+	BT_Carton	= 5;
+}
+
+// Cell位置信息
+message PBCellPos
+{
+	optional int32 x = 1;//从0开始
+	optional int32 y = 2;//从0开始
+}
+
+//棋子基础属性
+message PBChipProperties
+{
+	optional bool interactive 		= 1[default = false];//是否可交互，交换棋子或点击bonus
+	optional bool falling 			= 2[default = false];//是否可在EmptyCell随重力方向掉落
+	optional bool block_move 		= 3[default = false];//是否阻挡掉落
+	optional bool block_swap 		= 18[default = false];//是否阻挡交换 
+	optional bool block_damage_u	= 4[default = false];//是否阻挡破坏(Under),该元素在该格子上被清除时，该格子上石板等铺在底层的元素不会受影响
+	optional bool block_damage_t	= 6[default = false];//是否阻挡破坏(Through),阻挡直线特技的效果传到直线特效将要传播到接下来的其他格子
+	optional bool active 			= 5[default = false];//是否活动，在玩家操作一步后会活动，（泡泡Foam）
+	optional bool growing 			= 16[default = false];//
+	optional bool colored 			= 7[default = false];//带颜色的，只有带颜色的可以有三消匹配
+	optional bool visible 			= 8[default = false];//是否在游戏中可见
+	optional bool target 			= 9[default = false];//是否可以被作为收集目标
+	optional bool match_damage 		= 10[default = false];//是否可被相邻的匹配损坏
+	optional bool wind_damage		= 11[default = false];//是否可被响邻的爆炸损坏(冲击波)
+	optional bool explosion_damage	= 12[default = false];//是否可被爆炸直接顺坏
+	optional bool hummer_damage 	= 13[default = false];//是否可被锤子砸坏
+	optional bool reshulffle		= 14[default = false];//是否参与洗牌
+	optional bool multigrades 		= 15[default = false];//是否有多个等级，通常用于阻挡
+	optional bool block_match 		= 17[default = false];//是否阻挡消除
+	optional bool auto_filling 		= 19[default = false];//它下层的棋子是否可为空，即是否需要自动为其填充
+	optional bool block_rainbow_select = 22[default = false];//是否阻挡被五消选择目标（箱子不能被五消选择，牢笼可以）
+	optional bool minus_grade		= 23[default = false]; //是否减层
+
+	optional EChipType chip_type	= 20[default = CT_None];//棋子类型 
+	optional uint32 chip_id			= 21;//棋子ID
+}
+
+message PBUserAccount
+{
+	optional uint32 user_id			= 1;
+	optional string sdk_user_id		= 2;
+	optional string user_name		= 3;
+	optional string sdk_user_name	= 4;
+	optional string head_icon		= 6;//2D头像url
+
+	optional string token			= 8;
+	optional int64 timestamp		= 9;
+	optional string device_token	= 10;
+}
+
+message PBChipShowLayer
+{
+	optional uint32 chip_id			= 1;//棋子ID
+}
+
+message PBChipDestroyPriority
+{
+	optional uint32 chip_id			= 1;//棋子ID
+}
+enum PBChipGrid
+{
+	e_None=0;
+	e_1x2=1;
+	e_2x1=2;
+	e_2x2=3;
+	e_2x3=4;
+	e_3x2=5;
+	e_3x3=6;
+}

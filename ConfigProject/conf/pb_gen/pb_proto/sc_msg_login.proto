@@ -1,0 +1,63 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_bi_data.proto";
+import "enum_define.proto";
+
+
+//登陆请求
+message PBLoginRequest
+{
+    option (OptionMessageId) = SC_MSG_Login_Request;
+    required string fpid        = 1;
+    required int32 serverid     = 2;
+    optional string app_version = 3; // 客户端app版本号：1.0.1（Major.Minor.Binary）
+                                     // Major：大版本号，该值变化说明不兼容之前的版本（0~99）
+                                     // Minor：必须更新应用程序的版本号，需要强更（0~99）
+                                     // Binary：应用程序版本号，bug fix等，玩家可以选择不更新（0~999）
+    optional int32 res_version  = 4; // 资源版本号
+    optional string session_key = 5;
+    optional PBBIPlayerLogin bi_data = 6;
+}
+
+//登陆响应
+message PBLoginResponse
+{
+    option (OptionMessageId) = SC_MSG_Login_Response;
+    required string fpid          = 1;
+    required int32 serverid       = 2;
+    optional string roleid        = 3;
+    optional double servertime    = 4;
+    optional bool new_role        = 5; // 是否是新创建的角色
+    optional bool prologue_passed = 6; // 是否已经通过序章新手引导
+}
+
+//玩家信息请求
+message PBPlayerDataRequest
+{
+    option (OptionMessageId) = SC_MSG_PlayerData_Request;
+}
+
+//玩家信息响应
+message PBPlayerDataResponse
+{
+    option (OptionMessageId) = SC_MSG_PlayerData_Response;
+    repeated PBResourceValue balance = 1;//玩家货币量
+    optional uint32 titleLevel       = 2;// 爵位等级
+}
+
+//玩家完成序章
+message PBPrologueFinishRequest
+{
+    option (OptionMessageId) = SC_MSG_PrologueFinish_Request;
+}
+
+message PBPrologueFinishResponse
+{
+    option (OptionMessageId) = SC_MSG_PrologueFinish_Response;
+}
+

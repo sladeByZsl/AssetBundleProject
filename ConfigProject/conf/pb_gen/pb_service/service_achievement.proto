@@ -1,0 +1,16 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_achievement.proto";
+import "google/api/annotations.proto";
+
+service AchievementService {
+
+    rpc HandleGetAllAchievements (FunPlus.Common.Config.PBGetAllAchievementRequest) returns (FunPlus.Common.Config.PBGetAllAchievementResponse) {
+        option (google.api.http) = {
+        post: "/api/v1/mission"
+        body: "*"
+      };
+    }
+}

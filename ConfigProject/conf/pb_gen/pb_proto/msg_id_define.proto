@@ -1,0 +1,246 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+
+/**
+ * @brief 通信消息ID，作为通信协议，不可随意修改枚举值
+ * 如果是客户端发往服务器的消息，消息ID的低12位将作为数组索引便于快速响应消息，尽量从0开始依次编排
+ */
+
+enum EModuleTypeIndex
+{
+	MOD_Login				= 0x0001;
+	MOD_Editor              = 0x0002;
+	MOD_BI                  = 0x0003;
+	MOD_SceneModule			= 0x1002;
+}
+
+enum EMessageId
+{
+	MSG_Error                       =  -1;//保留给错误码
+	MSG_Ping                        =  -2;//golib ping 保留
+	MSG_EditorLogin_Request			= 0x00010000;
+	MSG_EditorLogin_Response		= 0x00011000;
+
+
+	MSG_JoinGame_Request			= 0x00010003;//保留给socket
+	MSG_JoinGame_Response			= 0x00011003;
+
+	MSG_M3LevelSync_Request			= 0x00020000;
+	MSG_M3LevelSync_Response		= 0x00021000;
+
+	MSG_M3LevelLock_Request		    = 0x00020001;
+	MSG_M3LevelLock_Response	    = 0x00021001;
+
+	MSG_M3LevelUnlock_Request		= 0x00020004;
+	MSG_M3LevelUnlock_Response		= 0x00021004;
+
+	MSG_M3LevelCreate_Request		= 0x00020002;
+	MSG_M3LevelCreate_Response		= 0x00021002;
+
+	MSG_M3LevelCopy_Request			= 0x00020003;
+	MSG_M3LevelCopy_Response		= 0x00021003;
+
+
+	MSG_M3LeveDelete_Request		= 0x00020005;
+	MSG_M3LeveDelete_Response		= 0x00021005;
+
+	MSG_M3LeveMove_Request			= 0x00020006;
+	MSG_M3LeveMove_Response			= 0x00021006;
+
+
+	MSG_M3LevelVerify_Request       = 0x00020007;
+	MSG_M3LevelVerify_Response      = 0x00021007;
+
+	MSG_M3LevelSetting_Request      = 0x00020008;
+	MSG_M3LevelSetting_Response     = 0x00021008;
+
+	MSG_M3LevelImport_Request      = 0x00020009;
+	MSG_M3LevelImport_Response     = 0x00021009;
+
+	MSG_M3LevelCopyLock_Request    = 0x0002000A;
+
+	MSG_M3LevelBatchDelete_Request  = 0x0002000B;
+	MSG_M3LevelBatchDelete_Response = 0x0002100B;
+
+	MSG_M3LevelBatchUnlock_Request = 0x0002000C;
+	MSG_M3LevelBatchUnlock_Response = 0x0002100C;
+
+	MSG_M3LeveBatchMove_Request  = 0x0002000D;
+	MSG_M3LeveBatchMove_Response = 0x0002100D;
+
+	MSG_M3LevelBatchCopy_Request  = 0x0002000E;
+	MSG_M3LevelBatchCopy_Response = 0x0002100E;
+
+	MSG_M3LevelModifySync_Request = 0x0002000F;
+
+	MSG_M3BIPanelInfo_Request     = 0x00030000;
+	MSG_M3BIPanelInfo_Response    = 0x00031000;
+
+	MSG_Ping_Request			= 0x10020002; //保留给socket
+	MSG_Ping_Response			= 0x10021002;
+
+	MSG_LogSetting_Request      = 0x10020003;
+	MSG_LogSetting_Response     = 0x10021003;
+
+	MSG_ClientInternal_Mask		= 0x0F000000;
+	MSG_NetConnectFail_Notice	= 0x0F000001;//@_@客户端内部消息，连接服务器失败
+	MSG_NetDisconnected_Notice	= 0x0F000002;//@_@客户端内部消息，在线时网络连接断开
+
+
+    /**
+     * @brief
+     *   以下是服务器与客户端之间的通讯协议
+     */
+	SC_MSG_Login_Request           			= 0x00A00101;
+	SC_MSG_Login_Response          			= 0x00A00102;
+    SC_MSG_PrologueFinish_Request           = 0x00A00103;   // 序章结束请求
+	SC_MSG_PrologueFinish_Response          = 0x00A00104;
+
+    ///
+    /// Login Get Data
+    ///
+	SC_MSG_PlayerData_Request 				= 0x00A00201; 	// 请求玩家信息
+	SC_MSG_PlayerData_Response 				= 0x00A00202;	
+	SC_MSG_AllBuildingData_Request			= 0x00A00203; 	// 请求所有建筑信息
+	SC_MSG_AllBuildingData_Response			= 0x00A00204;
+	SC_MSG_AllHeroData_Request				= 0x00A00205;	// 请求所有卡牌信息
+	SC_MSG_AllHeroData_Response				= 0x00A00206;
+
+	///
+    /// Building System
+    ///
+	SC_MSG_BuildingBuild_Request			= 0x00A00301;	// 开始建造建筑
+	SC_MSG_BuildingBuild_Response			= 0x00A00302;
+	SC_MSG_BuildingUpgrade_Request			= 0x00A00303;	// 开始升级建筑
+	SC_MSG_BuildingUpgrade_Response			= 0x00A00304;
+	SC_MSG_BuildingSpeedup_Request			= 0x00A00305;	// 加速建造/升级
+	SC_MSG_BuildingSpeedup_Response			= 0x00A00306;
+	SC_MSG_BuildingResCollect_Request		= 0x00A00307;	// 资源收取
+	SC_MSG_BuildingResCollect_Response		= 0x00A00308;
+	SC_MSG_BuildingSyncData_Request			= 0x00A00309;	// 建筑状态重新同步
+	SC_MSG_BuildingSyncData_Response		= 0x00A00310;
+	SC_MSG_BuildingAreaUnlock_Request		= 0x00A00311;	// 区块解锁
+	SC_MSG_BuildingAreaUnlock_Response		= 0x00A00312;
+	SC_MSG_BuildingCampTrain_Request		= 0x00A00313;	// 训练营研究/训练
+	SC_MSG_BuildingCampTrain_Response		= 0x00A00314;
+	SC_MSG_BuildingCampCollect_Request		= 0x00A00315; 	// 训练营收取
+	SC_MSG_BuildingCampCollect_Response		= 0x00A00316; 	
+	SC_MSG_CampTrainNumChg_Request			= 0x00A00317; 	// 训练营训练数量修改
+	SC_MSG_CampTrainNumChg_Response			= 0x00A00318; 	
+	SC_MSG_CampTrainSkip_Request			= 0x00A00319; 	// 训练营训练跳过
+	SC_MSG_CampTrainSkip_Response			= 0x00A00320; 	
+
+    ///
+    /// Hero System
+    ///
+	SC_MSG_HeroUpgrade_Request				= 0x00A00401;	// 升级请求
+	SC_MSG_HeroUpgrade_Response				= 0x00A00402;	
+	SC_MSG_HeroAscend_Request				= 0x00A00403;	// 进阶请求
+	SC_MSG_HeroAscend_Response              = 0x00A00404;
+	SC_MSG_AllHeroTeamData_Request          = 0x00A00405;	// 所有队伍请求
+	SC_MSG_AllHeroTeamData_Response         = 0x00A00406;
+	SC_MSG_HeroTeamSave_Request             = 0x00A00407;	// 队伍保存请求
+	SC_MSG_HeroTeamSave_Response            = 0x00A00408;
+	SC_MSG_HeroLock_Request					= 0x00A00409;	// 卡牌锁定请求
+	SC_MSG_HeroLock_Response				= 0x00A0040A;
+
+	///
+    /// Campaign System
+    ///
+    SC_MSG_AllCampaignData_Request			= 0x00A00501; 	// 请求所有通关副本信息
+    SC_MSG_AllCampaignData_Response			= 0x00A00502;   // 
+    SC_MSG_CampaignFinish_Request			= 0x00A00503;   // 关卡战斗结束通知服务器
+    SC_MSG_CampaignFinish_Response			= 0x00A00504;   // 
+    SC_MSG_StartFight_Request               = 0x00A00505;   // 请求开始战斗
+	SC_MSG_StartFight_Response              = 0x00A00506;   // 
+	SC_MSG_ReceiveReward_Request            = 0x00A00507;   // 关卡领奖
+	SC_MSG_ReceiveReward_Response           = 0x00A00508;   // 
+
+	SC_MSG_CampaignUnlockData_Request		= 0x00A00509; 	// 请求副本章節解鎖信息
+    SC_MSG_CampaignUnlockData_Response		= 0x00A00510;   // 
+
+    SC_MSG_Revive_Request					= 0x00A00511; 	// 请求死亡复活扣钻石
+    SC_MSG_Revive_Response					= 0x00A00512;   // 
+
+    ///
+    /// Lottery System
+    ///
+    SC_MSG_LotteryData_Request				= 0x00A00601; 	// 抽奖信息请求
+    SC_MSG_LotteryData_Response				= 0x00A00602;   // 
+    SC_MSG_Lottery_Request					= 0x00A00603;   // 抽奖请求
+    SC_MSG_Lottery_Response					= 0x00A00604;   // 
+
+	///
+    /// Item System
+    ///
+    SC_MSG_AllItemData_Request				= 0x00A00701; 	// 请求所有物品信息
+    SC_MSG_AllItemData_Response				= 0x00A00702;   // 
+    SC_MSG_UseItem_Request					= 0x00A00703;   // 请求使用物品
+    SC_MSG_UseItem_Response					= 0x00A00704;   // 
+
+	///
+    /// Resource System
+    ///
+    SC_MSG_AllResourceData_Request			= 0x00A00705; 	// 请求所有玩家资源信息
+    SC_MSG_AllResourceData_Response			= 0x00A00706;   // 
+
+	///
+	/// Task System
+	///
+	SC_MSG_GetAllTaskDataRequest			= 0x00A00801; 	// 请求任务列表
+	SC_MSG_GetAllTaskDataResponse			= 0x00A00802;
+	SC_MSG_GainTaskRewardRequest			= 0x00A00803;	// 领取任务奖励
+	SC_MSG_GainTaskRewardResponse		    = 0x00A00804;
+	SC_MSG_AcceptTaskRequest                = 0x00A00805;   // 接取任务
+	SC_MSG_AcceptTaskResponse               = 0x00A00806;
+	SC_MSG_FinishTaskRequest                = 0x00A00807;   // 完成任务
+	SC_MSG_FinishTaskResponse               = 0x00A00808;
+
+	///
+	/// title System
+	///
+	SC_MSG_ReceiveTitleRewardRequest		= 0x00A00901;   // 领取爵位奖励
+	SC_MSG_ReceiveTitleRewardResponse		= 0x00A00902;   //
+
+	///
+	/// achievement System
+	///
+	SC_MSG_GetAllAchievementRequest			= 0x00A00A01;   // 请求成就
+	SC_MSG_GetAllAchievementResponse		= 0x00A00A02;   //
+
+	///
+	/// shop System
+	///
+	SC_MSG_ShopAllData_Request			    = 0x00A00B01;   // 请求商店数据
+	SC_MSG_ShopAllData_Response			    = 0x00A00B02;   //
+
+	SC_MSG_Shop_Buy_Request				    = 0x00A00B03;   // 请求购买商店数据
+	SC_MSG_Shop_Buy_Response			    = 0x00A00B04;   //
+
+    /**
+     * @brief
+     *   以下是一些特殊的server-client协议
+     */
+	SC_MSG_DebugCmd_Request                 = 0x00AF0001;    // debug命令
+	SC_MSG_DebugCmd_Response                = 0x00AF0002;
+
+	///
+	/// 服务器推送，推送在服务器需要做单独的注册才能send
+	///
+	SC_MSG_PlayerResourceSync_Push			= 0x00B00101;	 // 玩家数值资源同步推送
+	SC_MSG_PlayerGainHeroCard_Push          = 0x00B00102;    // 获得英雄卡牌
+	SC_MSG_UnlockedCampProduct_Push			= 0x00B00103;    // 同步训练营解锁项目
+	SC_MSG_UnlockedDungeon_Push				= 0x00B00104;	 // 同步副本解锁章节
+	SC_MSG_PlayerItemSync_Push				= 0x00B00105;	 // 物品同步推送(客户端首先查收是否有itemid,有则更新，没有及增加,但count为0则删除)
+	SC_MSG_DebugLog_Push					= 0x00B00106;	 // debug日志
+	SC_MSG_PlayerTaskPush					= 0x00B00107;	 // 任务推送
+	SC_MSG_AchievementDataPush				= 0x00A00108;	 // 成就推送
+	SC_MSG_HeroPackageAlreadyFullPush       = 0x00A00109;	 // 英雄背包已满提示
+}
+
+
+

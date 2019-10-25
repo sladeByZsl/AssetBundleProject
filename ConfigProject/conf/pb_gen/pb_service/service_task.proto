@@ -1,0 +1,39 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_task.proto";
+import "google/api/annotations.proto";
+
+service TaskService {
+
+    rpc GetAllTaskData (FunPlus.Common.Config.PBGetAllTaskDataRequest) returns (FunPlus.Common.Config.PBGetAllTaskDataResponse) {
+        option (google.api.http) = {
+        post: "/api/v1/task/get-all-task-data"
+        body: "*"
+      };
+    }
+
+    /*
+    rpc GainTaskReward (FunPlus.Common.Config.PBGainTaskRewardRequest) returns (FunPlus.Common.Config.PBGainTaskRewardResponse) {
+        option (google.api.http) = {
+        post: "/api/v1/task/gain-task-reward"
+        body: "*"
+      };
+    }
+    */
+
+    rpc AcceptTask (FunPlus.Common.Config.PBAcceptTaskRequest) returns (FunPlus.Common.Config.PBAcceptTaskResponse) {
+        option (google.api.http) = {
+        post: "/api/v1/task/accept-task"
+        body: "*"
+      };
+    }
+
+    rpc FinishTask (FunPlus.Common.Config.PBFinishTaskRequest) returns (FunPlus.Common.Config.PBFinishTaskResponse) {
+        option (google.api.http) = {
+        post: "/api/v1/task/finish-task"
+        body: "*"
+      };
+    }
+}

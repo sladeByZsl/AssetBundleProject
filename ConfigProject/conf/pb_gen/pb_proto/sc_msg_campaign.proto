@@ -1,0 +1,97 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+
+
+//请求大地圖解鎖信息
+message PBCampaignUnlockDataRequest
+{
+    option (OptionMessageId) = SC_MSG_CampaignUnlockData_Request;
+}
+
+//响应大地圖解鎖信息
+message PBCampaignUnlockDataResponse
+{
+    option (OptionMessageId) = SC_MSG_CampaignUnlockData_Response;    
+    repeated uint32 chapter_ids         = 1; //已解锁列表
+}
+
+//请求所有通关副本信息
+message PBAllCampaignDataRequest
+{
+    option (OptionMessageId) = SC_MSG_AllCampaignData_Request;
+    optional uint32 chapter_id         = 1; //章节id
+}
+
+//响应已通关关卡信息
+message PBAllCampaignDataResponse
+{
+    option (OptionMessageId) = SC_MSG_AllCampaignData_Response;
+    repeated PBCampaignData campaigns = 1;//所有通关关卡信息    
+    optional uint32 chapter_id        = 2; //章节id
+}
+
+//请求开始战斗
+message PBStartFightRequest
+{
+    option (OptionMessageId) = SC_MSG_StartFight_Request;
+    optional uint32 campaign_id         = 1; //关卡id
+}
+
+//开始战斗结果响应
+message PBStartFightResponse
+{
+    option (OptionMessageId) = SC_MSG_StartFight_Response;
+    optional uint32 campaign_id         = 1; //关卡id
+    repeated PBItemValue data           = 2;//奖励信息(客户端模拟小怪掉落)
+    repeated PBItemValue boss_data      = 3;//奖励信息(客户端模拟boss掉落)
+    optional int32 drop_seed            = 4; //服务器生成客户端模拟掉落随机数(0-10000)
+}
+
+//通知服务器关卡战斗结果
+message PBCampaignFinishRequest
+{
+    option (OptionMessageId) = SC_MSG_CampaignFinish_Request;
+    optional uint32 campaign_id         = 1; //关卡id
+    optional uint32 fightresult         = 2; //战斗结果
+}
+
+//关卡战斗存储结果响应
+message PBCampaignFinishResponse
+{
+    option (OptionMessageId) = SC_MSG_CampaignFinish_Response;
+    optional uint32 campaign_id         = 1; //关卡id
+}
+
+//请求领奖
+message PBReceiveRewardRequest
+{
+    option (OptionMessageId) = SC_MSG_ReceiveReward_Request;
+    optional uint32 campaign_id         = 1; //关卡id
+}
+
+//领奖结果响应
+message PBReceiveRewardResponse
+{
+    option (OptionMessageId) = SC_MSG_ReceiveReward_Response;
+    repeated PBItemValue data = 1;//关卡奖励信息小怪
+    repeated PBItemValue boss_data  = 2;//奖励信息(客户端模拟boss掉落)
+}
+
+//请求死亡复活扣钻石
+message PBReviveRequest
+{
+    option (OptionMessageId) = SC_MSG_Revive_Request;
+    optional uint32 campaign_id         = 1; //关卡id
+}
+
+//死亡复活扣钻石响应
+message PBReviveResponse
+{
+    option (OptionMessageId) = SC_MSG_Revive_Response;
+}

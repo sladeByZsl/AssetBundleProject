@@ -1,0 +1,42 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+option go_package = "server/pkg/gen/rawdata";
+
+//副本表
+message PBDungeon
+{
+	optional uint32 id 						= 1;//唯一标识
+	optional int32 chapter_id 				= 2;//章节编号
+	optional int32 stage_id 				= 3;//关卡编号
+	optional uint32 unlock_dungeon_id 		= 4;//解锁前置关卡编号
+	optional string name 					= 5;//编辑器下文件名称
+	optional string bgmfile 				= 6;//背景音乐
+	optional string draw_color 				= 7;//棋盘染色编号
+	optional string title 					= 8;//关卡显示标题
+	optional string desc 					= 9;//关卡文字简介
+	optional int32 cost_energy 				= 10;//通关所需体力
+	optional int32 return_energy_persent 	= 11;//未通过返还体力百分比
+	repeated uint32 reward_ids 				= 12;//奖励投放编号
+	optional bool is_repeat 				= 13;//是否可重复刷
+	optional uint32 enter_plot_id 			= 14;//剧情前关卡
+	optional uint32 leave_plot_id 			= 15;//剧情后关卡
+	repeated uint32 reward_ids_boss			= 16;//boss奖励投放编号
+	repeated uint32 reward_ids_firsttime 	= 17;//首次奖励投放编号
+	repeated uint32 reward_ids_boss_firsttime= 18;//首次boss奖励投放编号
+	optional int32 revive_gem 				= 19;//复活死亡扣钻石
+
+}
+
+
+//副本大地圖表
+message PBWorldMap
+{
+	optional uint32 id 						= 1;//唯一标识
+	optional uint32 unlock_dungeon_id 		= 2;//解锁前置关卡编号
+}
+
+//副本大地圖列表
+message PBWorldMapList
+{
+	repeated PBWorldMap world_map_list = 1;
+}

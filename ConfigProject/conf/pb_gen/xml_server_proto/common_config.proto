@@ -1,0 +1,16 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+option go_package = "server/pkg/gen/rawdata";
+
+message PBCommonConfig
+{
+	optional string id 			= 1;	//id
+	optional string content 	= 2;	//值
+	optional string clz 		= 3;	//值类型
+}
+
+message PBCommonConfigList
+{
+	repeated PBCommonConfig configs = 1;
+}
+

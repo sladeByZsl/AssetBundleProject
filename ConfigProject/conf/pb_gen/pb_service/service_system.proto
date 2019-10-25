@@ -1,0 +1,23 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "msg_system.proto";
+import "google/api/annotations.proto";
+
+service SystemService {
+
+  rpc Ping(FunPlus.Common.Config.PBPingMessageRequest) returns (FunPlus.Common.Config.PBPingMessageResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/system/ping"
+        body: "*"
+      };
+  } 
+
+  rpc LogSetting(FunPlus.Common.Config.PBLogSettingRequest) returns (FunPlus.Common.Config.PBLogSettingRespose) {
+      option (google.api.http) = {
+        post: "/api/v1/system/log_setting"
+        body: "*"
+      };
+  } 
+}

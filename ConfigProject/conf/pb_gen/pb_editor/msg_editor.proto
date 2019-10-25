@@ -1,0 +1,280 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "level_list.proto";
+
+
+
+message PBM3LevelListRequest
+{
+	option (OptionMessageId)    = MSG_M3LevelSync_Request;
+}
+
+// 关卡列表回复
+message PBM3LevelListResponse
+{
+	option (OptionMessageId)         = MSG_M3LevelSync_Response;
+	optional PBM3FolderList    folder_list = 1;
+	optional string            default_dir = 2;
+}
+
+//------------------------------------------------------------
+// 关卡ID创建请求
+message PBM3LevelIdCreateRequest
+{
+	option (OptionMessageId) = MSG_M3LevelCreate_Request;
+	optional string             dir      = 1;
+	optional PBLevelDescription desc     = 2;
+	optional bytes              setting  = 3;
+}
+
+// 关卡ID创建回复
+message PBM3LevelIdCreateResponse
+{
+	option (OptionMessageId) = MSG_M3LevelCreate_Response;
+	optional PBM3Folder       cur_folder = 1;
+	optional string             dir      = 2;
+	optional string             level_id = 3;
+}
+
+
+// 关卡权限验证请求
+message PBM3LevelIdVerifyRequest
+{
+	option (OptionMessageId) = MSG_M3LevelVerify_Request;
+	optional EVerifyType        verify_type = 1[default = E_Verify_Create];
+	optional string             dst_dir     = 2;
+	optional string             src_dir     = 3;
+}
+
+// 关卡权限验证回复
+message PBM3LevelIdVerifyResponse
+{
+	option (OptionMessageId) = MSG_M3LevelVerify_Response;
+	optional sint32          ret_code = 1;
+	optional EVerifyType  verify_type = 2[default = E_Verify_Create];
+}
+
+
+// 取关卡数据请求
+message PBM3LevelSettingRequest
+{
+	option (OptionMessageId) = MSG_M3LevelSetting_Request;
+	optional string             dir         = 1;
+	optional string             level_id    = 2;
+}
+
+//取关卡数据回复
+message PBM3LevelSettingResponse
+{
+	option (OptionMessageId) = MSG_M3LevelSetting_Response;
+	optional string             dir         = 1;
+	optional PBLevelDescription desc        = 2;
+	optional bytes              setting     = 3;
+}
+
+
+//关卡锁定请求
+message PBM3LevelLockRequest
+{
+	option (OptionMessageId) = MSG_M3LevelLock_Request;
+	optional string             dir         = 1;
+	optional string             level_id    = 2;
+}
+
+message PBM3LevelLockResponse
+{
+	option (OptionMessageId) = MSG_M3LevelLock_Response;
+	optional PBLevelDescription desc        = 1;
+}
+
+
+message PBM3LevelUnlockRequest
+{
+	option (OptionMessageId) = MSG_M3LevelUnlock_Request;
+	optional string             dir         = 1;
+	optional PBLevelDescription desc        = 2;
+	optional bytes     setting              = 3;
+}
+
+message PBM3LevelUnlockResponse
+{
+	option (OptionMessageId) = MSG_M3LevelUnlock_Response;
+	optional PBLevelDescription desc        = 1;
+}
+
+message PBM3LevelDeleteRequest
+{
+	option (OptionMessageId) = MSG_M3LeveDelete_Request;
+	optional string             dir         = 1;
+	optional string             level_id    = 2;
+}
+
+message PBM3LevelDeleteResponse
+{
+	option (OptionMessageId) = MSG_M3LeveDelete_Response;
+	optional PBM3FolderList    folder_list = 1;
+}
+
+message PBM3LevelMoveRequest
+{
+	option (OptionMessageId) = MSG_M3LeveMove_Request;
+	optional string             dir         = 1;
+	optional string             level_id    = 2;
+	optional string             to_dir      = 3;
+	optional int32              order       = 4;
+}
+
+
+message PBM3LevelMoveResponse
+{
+	option (OptionMessageId) = MSG_M3LeveMove_Response;
+	optional PBM3FolderList    folder_list = 1;
+		optional string             dir         = 2;
+	optional string             level_id    = 3;
+}
+
+message PBM3LevelCopyRequest
+{
+	option (OptionMessageId) = MSG_M3LevelCopy_Request;
+	optional string             dir         = 1;
+	optional string             level_id    = 2;
+	optional string             to_dir      = 3;
+	optional int32              order       = 4;
+	optional string             new_level_id = 5;
+}
+
+
+message PBM3LevelCopyResponse
+{
+	option (OptionMessageId) = MSG_M3LevelCopy_Response;
+	optional PBM3FolderList    folder_list = 1;
+	optional string            dir         = 2;
+	optional string            level_id    = 3;
+}
+
+
+//------------------------------------------------------------
+// 关卡导入请求
+message PBM3LevelImportRequest
+{
+	option (OptionMessageId) = MSG_M3LevelImport_Request;
+	optional string             dir      = 1;
+	optional PBLevelDescription desc     = 2;
+	optional bytes              setting  = 3;
+}
+
+// 关卡导入回复
+message PBM3LevelImportResponse
+{
+	option (OptionMessageId) = MSG_M3LevelImport_Response;
+	optional PBM3Folder       	cur_folder = 1;
+	optional string             dir      = 2;
+	optional string             level_id = 3;
+}
+
+message PBM3LevelCopyLockRequest
+{
+	option (OptionMessageId) = MSG_M3LevelCopyLock_Request;
+	optional string             dir         = 1;
+	optional string             level_id    = 2;
+	optional string             to_dir      = 3;
+	optional int32              order       = 4;
+	optional string             new_level_id = 5;
+	optional bytes              setting      = 6;
+}
+
+
+message PBM3LevelBatchDeleteRequest
+{
+	option (OptionMessageId) = MSG_M3LevelBatchDelete_Request;
+	optional string             dir              = 1;
+	repeated string             level_id_list    = 2;
+}
+
+message PBM3LevelBatchDeleteResponse
+{
+	option (OptionMessageId) = MSG_M3LevelBatchDelete_Response;
+	optional sint32            ret_code = 1;
+	optional string            err_level_id = 2;
+	optional PBM3FolderList    folder_list  = 3;
+}
+
+message PBM3LevelBatchUnlockItem
+{
+	optional PBLevelDescription desc        = 1;
+	optional bytes              setting     = 2;
+}
+
+message PBM3LevelBatchUnlockRequest
+{
+	option (OptionMessageId) = MSG_M3LevelBatchUnlock_Request;
+	optional string             dir         = 1;
+	repeated PBM3LevelBatchUnlockItem unlock_item_list = 2;
+}
+
+message PBM3LevelBatchUnlockResponse
+{
+	option (OptionMessageId) = MSG_M3LevelBatchUnlock_Response;
+	optional sint32             ret_code = 1;
+	optional string             err_level_id = 2;
+	repeated PBLevelDescription desc_list   = 3;
+}
+
+
+message PBM3LevelBatchMoveRequest
+{
+	option (OptionMessageId) = MSG_M3LeveBatchMove_Request;
+	optional string             dir         = 1;
+	repeated string             level_id_list    = 2;
+	optional string             to_dir      = 3;
+	optional int32              order       = 4;
+}
+
+
+message PBM3LevelBatchMoveResponse
+{
+	option (OptionMessageId) = MSG_M3LeveBatchMove_Response;
+	optional PBM3FolderList    folder_list = 1;
+	optional string             dir         = 2;
+	repeated string             level_id_list    = 3;
+}
+
+message PBM3LevelBatchCopyItem
+{
+	optional string             level_id    = 1;
+	optional string             new_level_id = 2;
+}
+
+message PBM3LevelBatchCopyRequest
+{
+	option (OptionMessageId) = MSG_M3LevelBatchCopy_Request;
+	optional string             dir         = 1;
+	optional string             to_dir      = 2;
+	optional int32              order       = 3;
+	repeated PBM3LevelBatchCopyItem copy_item_list = 4;
+	
+}
+
+
+message PBM3LevelBatchCopyResponse
+{
+	option (OptionMessageId) = MSG_M3LevelBatchCopy_Response;
+	optional PBM3FolderList    folder_list = 1;
+	optional string            dir         = 2;
+	repeated string            level_id    = 3;
+}
+
+message PBM3LevelModifySyncRequest
+{
+	option (OptionMessageId) = MSG_M3LevelModifySync_Request;
+	optional string             dir         = 1;
+	optional PBLevelDescription desc        = 2;
+	optional bytes              setting     = 3;
+}
+
+

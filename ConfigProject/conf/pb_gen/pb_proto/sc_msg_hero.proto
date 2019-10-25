@@ -1,0 +1,93 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+import "enum_define.proto";
+
+// 所有英雄卡牌请求
+message PBAllHeroDataRequest
+{
+    option (OptionMessageId)            = SC_MSG_AllHeroData_Request;
+}
+
+// 所有英雄卡牌回应
+message PBAllHeroDataResponse
+{
+    option (OptionMessageId)            = SC_MSG_AllHeroData_Response;
+    repeated PBHeroCardData heroes      = 1;
+}
+
+// 英雄卡牌锁定请求
+message PBHeroLockRequest
+{
+    option (OptionMessageId)            = SC_MSG_HeroLock_Request;
+    optional uint32 hero_gid            = 1; // 待锁定英雄卡牌gid
+    optional bool locked                = 2; // 是否上锁
+}
+
+// 英雄卡牌锁定回应
+message PBHeroLockResponse
+{
+    option (OptionMessageId)            = SC_MSG_HeroLock_Response;
+}
+
+// 英雄卡牌升级请求
+message PBHeroUpgradeRequest
+{
+    option (OptionMessageId)            = SC_MSG_HeroUpgrade_Request;
+    optional uint32 hero_gid            = 1; // 待升级英雄卡牌gid
+    repeated uint32 material_gid        = 2; // 材料卡牌gid
+}
+
+// 英雄卡牌升级回应
+message PBHeroUpgradeResponse
+{
+    option (OptionMessageId)            = SC_MSG_HeroUpgrade_Response;
+    optional PBHeroCardData hero_data   = 1; // 升级后英雄卡牌信息
+    repeated PBResourceValue cost       = 2; // 花费
+}
+
+// 英雄卡牌进阶请求
+message PBHeroAscendRequest
+{
+    option (OptionMessageId)            = SC_MSG_HeroAscend_Request;
+    optional uint32 hero_gid            = 1; // 待进阶英雄卡牌信息
+}
+
+// 英雄卡牌进阶回应
+message PBHeroAscendResponse
+{
+    option (OptionMessageId)            = SC_MSG_HeroAscend_Response;
+    optional PBHeroCardData hero_data   = 1; // 进阶后英雄卡牌信息
+    repeated PBResourceValue cost       = 2; // 花费
+}
+
+// 所有英雄队伍请求
+message PBAllHeroTeamDataRequest
+{
+    option (OptionMessageId)            = SC_MSG_AllHeroTeamData_Request;
+}
+
+// 所有英雄队伍回应
+message PBAllHeroTeamDataResponse
+{
+    option (OptionMessageId)            = SC_MSG_AllHeroTeamData_Response;
+    repeated PBHeroTeamData team_data   = 1; // 队伍信息
+}
+
+// 英雄队伍保存请求
+message PBHeroTeamSaveRequest
+{
+    option (OptionMessageId)            = SC_MSG_HeroTeamSave_Request;
+    repeated PBHeroTeamData team_data   = 1; // 队伍信息
+}
+
+// 英雄队伍保存回应
+message PBHeroTeamSaveResponse
+{
+    option (OptionMessageId)            = SC_MSG_HeroTeamSave_Response;
+}

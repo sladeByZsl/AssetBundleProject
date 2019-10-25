@@ -1,0 +1,15 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "msg_login.proto";
+import "google/api/annotations.proto";
+
+service EditorLoginService {
+    rpc Login (FunPlus.Common.Config.PBEditorLoginRequest) returns (FunPlus.Common.Config.PBEditorLoginResponse) {
+        option (google.api.http) = {
+      post: "/api/v1/login"
+      body: "*"
+    };
+    }
+}

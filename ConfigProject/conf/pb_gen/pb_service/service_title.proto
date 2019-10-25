@@ -1,0 +1,16 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_title.proto";
+import "google/api/annotations.proto";
+
+service TitleService {
+
+    rpc HandleTitleReward (FunPlus.Common.Config.PBReceiveTitleRewardRequest) returns (FunPlus.Common.Config.PBReceiveTitleRewardResponse) {
+        option (google.api.http) = {
+        post: "/api/v1/mission"
+        body: "*"
+      };
+    }
+}

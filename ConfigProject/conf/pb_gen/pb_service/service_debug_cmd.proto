@@ -1,0 +1,17 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_debug_cmd.proto";
+import "google/api/annotations.proto";
+
+service DebugCmdService {
+
+    rpc HandleDebugCmd (FunPlus.Common.Config.PBDebugCmdRequest) returns (FunPlus.Common.Config.PBDebugCmdResponse) {
+        option (google.api.http) = {
+        post: "/api/v1/debug-cmd"
+        body: "*"
+      };
+    }
+
+}

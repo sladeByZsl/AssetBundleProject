@@ -1,0 +1,19 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+option go_package = "server/pkg/gen/rawdata";
+import "common/enum_define.proto";
+
+message PBDropEntity
+{
+    optional ESDropType drop_type = 1[default = DropType_Hero]; // 掉落类型
+    optional uint32 drop_id       = 2; // 掉落对应的id
+    optional int32 drop_count     = 3; // 掉落数量
+    optional int32 drop_weight    = 4; // 掉落权重，DropRType_Weight类型的随机方式使用该值
+}
+
+message PBDropGroup
+{
+    optional uint32 id                = 1; // 掉落包id
+    optional ESDropRType random_type  = 2[default = DropRType_Prob]; // 随机类型
+    repeated PBDropEntity drop_list   = 3; // 掉落列表
+}

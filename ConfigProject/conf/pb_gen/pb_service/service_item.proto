@@ -1,0 +1,23 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_item.proto";
+import "google/api/annotations.proto";
+
+service InventoryService {
+
+  rpc GetAllItemData(FunPlus.Common.Config.PBAllItemDataRequest) returns (FunPlus.Common.Config.PBAllItemDataResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/dungeon/get-all-item-data"
+        body: "*"
+      };
+  }
+
+  rpc UseItem(FunPlus.Common.Config.PBItemUseRequest) returns (FunPlus.Common.Config.PBItemUseResponse) {
+      option (google.api.http) = {
+            post: "/api/v1/dungeon/use-item"
+            body: "*"
+        };
+  }
+}

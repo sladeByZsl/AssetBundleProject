@@ -1,0 +1,23 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_shop.proto";
+import "google/api/annotations.proto";
+
+service ShopService {
+
+    rpc GetShopAllData(FunPlus.Common.Config.PBShopAllDataRequest) returns (FunPlus.Common.Config.PBShopAllDataResponse) {
+        option (google.api.http) = {
+        post: "/api/v1/shop/get-shop-all-data"
+        body: "*"
+      };
+    }
+
+    rpc Buy(FunPlus.Common.Config.PBShopBuyRequest) returns (FunPlus.Common.Config.PBShopBuyResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/shop/buy"
+            body: "*"
+        };
+    }
+}

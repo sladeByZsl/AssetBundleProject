@@ -1,0 +1,15 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+
+
+package FunPlus.Common.Config;
+
+//import "descriptor.proto";
+import "google/protobuf/descriptor.proto";
+import "msg_id_define.proto";
+option go_package = "server/pkg/gen/msg";
+
+
+extend google.protobuf.MessageOptions {
+	optional EMessageId	OptionMessageId = 2000;
+}

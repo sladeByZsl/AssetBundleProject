@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfigGroups xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <XmlGroup group="conf/data_dat/xml_group.dat">
+    <XmlFile path="conf/data_xml/chips_definition.xml" type_name="FunPlus.Common.Config.PBChipDefinition" />
+  </XmlGroup>
+  <XmlSheetGroup group="conf/data_dat/xmlsheet_group.dat">
+    <Sheet sheet_name="sheet_name_default_key_int">
+      <SheetFile file_path="conf/data_xmlsheet/skill/PBSkill_400100100.xml" type_name="FunPlus.Common.Config.PBSkill" />
+    </Sheet>
+  </XmlSheetGroup>
+</ConfigGroups>

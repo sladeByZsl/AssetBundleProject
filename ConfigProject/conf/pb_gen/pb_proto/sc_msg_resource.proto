@@ -1,0 +1,21 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "enum_define.proto";
+
+// 请求资源数据信息
+message PBAllResourceDataRequest
+{
+    option (OptionMessageId) = SC_MSG_AllResourceData_Request;
+}
+
+// 响应资源数据信息
+message PBAllResourceDataResponse
+{
+    option (OptionMessageId) = SC_MSG_AllResourceData_Response;   
+    repeated  PBResourceValue resources = 1; // 玩家资源量
+}

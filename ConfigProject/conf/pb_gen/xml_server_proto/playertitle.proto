@@ -1,0 +1,22 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+option go_package = "server/pkg/gen/rawdata";
+
+
+// 任务基础
+message PBPlayerTitle
+{
+	optional int32 pt_id						= 1;//id
+	repeated uint32 pt_taskList 				= 2;//任务id组
+	optional string pt_chapterName				= 3;//章节名
+	optional string pt_titleName				= 4;//显示爵位名
+	optional string pt_chapterDesc				= 5;//章节描述
+	optional string pt_bgPic 					= 6;//背景图
+	repeated uint32 pt_reward 					= 7;//奖励内容
+}
+
+message PBPlayerTitleList
+{
+	repeated PBPlayerTitle playerTitle			= 1; //
+}
+

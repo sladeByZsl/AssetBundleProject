@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameConfigGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	
+  <GameXmlSheetGroup group="data_dat/xmlsheet_group.dat">
+	<GameXmlSheet sheet_name="sheet_name_default_key_int">
+        <!-- 技能配置 -->
+        <GameXmlSheetFile dir="data_xmlsheet/skill" type_name="FunPlus.Common.Config.PBSkill" />
+    </GameXmlSheet>
+  </GameXmlSheetGroup>
+</GameConfigGroups>

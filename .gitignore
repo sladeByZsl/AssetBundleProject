@@ -7,7 +7,6 @@
 /ConfigProject/*.user
 /ConfigProject/*.userprefs
 /ConfigProject/*.csproj
-/ConfigProject/conf
 /ConfigProject/DataPC
 /ConfigProject/DataAndroid
 /ConfigProject/DataIOS

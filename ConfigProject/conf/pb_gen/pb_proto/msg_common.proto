@@ -1,0 +1,287 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+//package FunPlus.Match3.Message;
+
+import "enum_define.proto";
+
+package FunPlus.Common.Config;
+
+message PBMessageEmpty
+{
+
+}
+
+///
+/// enum define: 只在前后端通讯协议里使用的枚举定义在这，如果conf的策划配表里也使用则需要定义在enum_define.proto
+///
+enum ESTaskStatus
+{
+	TaskStatus_Inactive    = 1; // 玩家身上的非活跃任务（已经挂身上但是没有达到accept的条件）
+	TaskStatus_Active      = 2; // 玩家身上的活跃任务
+	TaskStatus_Finish      = 3; // 玩家身上的已完成任务
+}
+
+///
+/// 英雄系统（Hero System）
+///
+
+// 英雄信息
+message PBHeroCardData
+{
+	optional uint32 hero_id					= 1;  // hero id
+	optional uint32 hero_gid				= 2;  // hero global_id
+	optional int32 level					= 3;  // 等级
+	optional int32 exp						= 4;  // 经验值
+	optional int32 ascension_level			= 5;  // 进阶等级
+	optional int32 red_star_level			= 6;  // 红星等级（吃同名卡）
+	optional int32 skill_level				= 7;  // 技能等级
+	repeated uint32 team_id					= 8;  // 归属队伍（可以多个）
+	optional bool locked					= 9;  // 是否上锁
+}
+
+// 英雄列表
+message PBHeroCards
+{
+	repeated PBHeroCardData heroes 			= 1;  // 英雄列表
+}
+
+// 英雄队伍
+message PBHeroTeamData
+{
+	optional uint32 team_id             	= 1; // team id
+	repeated PBHeroMember hero_members 		= 2; // 队伍中的英雄成员
+	optional string team_name             	= 3; // team name
+}
+
+// 队伍中的英雄成员
+message PBHeroMember
+{
+	optional uint32 pos 					= 1; // 英雄成员的位置信息
+	optional uint32 hero_gid 				= 2; // 英雄成员的global id
+}
+
+///
+/// 建筑系统（Building System）
+///
+
+// 建筑信息
+message PBBuildingData
+{
+	optional uint32 building_id 				= 1;//建筑id
+	optional uint32 building_pos				= 2;//建筑位置
+	optional ESBuildingState building_state 	= 3[default = Building_State_Idle];//建筑状态
+	optional PBProgress build_progress			= 4;//建筑进程
+	optional PBProgress collect_progress		= 5;//采集进程
+	optional PBBuildingProduce produce_progress = 6;//生产进程
+	optional bool is_new						= 7;//是否新建造或者升级完成
+}
+
+// 建筑列表
+message PBBuildings
+{
+	repeated PBBuildingData buildings 	= 1;//建筑列表
+}
+
+///
+/// 副本系统（Building System）
+///
+
+// 关卡信息
+message PBCampaignData
+{
+	optional uint32 campaign_id 			= 1;//关卡id
+	optional ESCampaignReward isrewards 	= 2[default = UnReceived];//是否领取奖励0,1
+}
+
+// 关卡列表
+message PBCampaigns
+{
+	repeated PBCampaignData campaigns 	= 1;//关卡列表
+}
+
+///
+/// 物品系统（Item System）
+///
+
+// 物品id-value
+message PBItemValue
+{
+	optional uint32 item_id			= 1; // 物品模板id
+	optional uint32 count 			= 2;
+}
+
+// 物品数据(可能还有动态属性数据)
+message PBItemData
+{
+	optional uint32 id 	    = 1;	// 物品唯一id
+	optional uint32 item_id = 2;    // 物品模板id
+	optional uint32 count   = 3;	// 物品数量
+}
+
+///
+/// 任务系统（task System）
+///
+message PBTaskData
+{
+	optional uint32 task_id     = 1; // unique task id
+}
+
+message PBTaskDataList
+{
+    optional ESTaskStatus task_status = 1;
+	repeated PBTaskData data_list     = 2;
+}
+
+///
+/// 成就
+///
+message PBAchievementData
+{
+	optional ESConditionType conditionType          = 1[default=ConditionType_BuildingLimit];
+	optional PBACBuildings buildings				= 2; // ConditionType_BuildingLimit
+	optional PBACLotteryTimes lotteryTimes			= 3; // ConditionType_LotteryTimes
+	optional PBACHeroLevel	heroLevel				= 4; // ConditionType_HeroLevel
+	optional PBACHeroAscend heroAscend				= 5; // ConditionType_HeroAscend
+	optional PBACDungeonPass dungeons			  	= 6; // ConditionType_DungeonPass
+	optional PBACDungeonPassTotal dungeonPassTotal	= 7; // ConditionType_DungeonPassTotal
+	optional PBACCampResearch campResearch			= 8; // ConditionType_CampResearch
+	optional PBACLoginDaysTotal loginDaysTotal		= 9; // ConditionType_LoginDaysTotal
+	optional PBACHeroStar heroStar					= 10; // ConditionType_HeroStar
+	optional PBACResourceTotal resourceTotal		= 11; // ConditionType_ResourceTotal
+	optional PBACHeroAttribute heroAttribute		= 12; // ConditionType_HeroAttribute
+}
+
+// -------------------------------------------------------------------
+// 成就各种数据类型结构定义 - 开始
+// -------------------------------------------------------------------
+
+message PBACBuildingData
+{
+	optional uint32 buildingId    = 1; // 单条building的成就记录，buildingId里携带了建筑等级和类型
+	optional uint32 buildingCount = 2; // 该类建筑的数量，至少大于等于1
+}
+
+// ConditionType_BuildingLimit
+// ConditionType_BuildingCount
+message PBACBuildings
+{
+	repeated PBACBuildingData data = 2; // 累计建筑信息
+}
+
+// ConditionType_LotteryTimes
+message PBACLotteryTimes
+{
+	optional uint32 times = 1; // 累计的抽奖次数
+}
+
+// ConditionType_HeroLevel
+message PBACHeroLevel
+{
+	repeated PBACHeroLevelData data = 1;
+}
+
+message PBACHeroLevelData
+{
+	optional uint32 count 		= 1; // 拥有数量
+	optional uint32 heroLevel 	= 2; // 英雄卡牌等级
+}
+
+// ConditionType_HeroAscend
+message PBACHeroAscend
+{
+	repeated PBACHeroAscendData data = 1;
+}
+
+message PBACHeroAscendData
+{
+	optional uint32 count 		= 1; // 拥有数量
+	optional uint32 heroAscend 	= 2; // 英雄卡牌阶
+}
+
+message PBACDungeonData
+{
+	optional uint32 dungeonId = 1; // 副本id
+	optional uint32 passTimes = 2; // 通关次数
+}
+
+// ConditionType_DungeonPass
+message PBACDungeonPass
+{
+	optional uint32 chapterId = 2; // 章节id
+	repeated PBACDungeonData data = 1; // 副本具体数据
+}
+
+// ConditionType_DungeonPassTotal
+message PBACDungeonPassTotal
+{
+	optional uint32 times = 3; // 累计副本通关的总次数
+}
+
+// ConditionType_CampResearch
+message PBACCampResearch
+{
+	repeated uint32 campProductId = 1; // 训练营研究的id
+}
+
+// ConditionType_LoginDaysTotal
+message PBACLoginDaysTotal
+{
+	optional uint32 days = 1; // 累计天数
+}
+
+// ConditionType_HeroStar
+message PBACHeroStar
+{
+	repeated PBACHeroStarData data = 1;
+}
+
+message PBACHeroStarData
+{
+	optional uint32 count 		= 1; // 英雄个数
+	optional uint32 heroStar 	= 2; // 英雄星级
+}
+
+// ConditionType_ResourceTotal
+message PBACResourceTotal
+{
+	repeated PBACResourceTotalData data = 1;
+}
+
+message PBACResourceTotalData
+{
+	optional uint32 resId 		= 1; // 资源id
+	optional uint64 resTotal 	= 2; // 资源累积数量
+}
+
+// ConditionType_HeroAttribute
+message PBACHeroAttribute
+{
+	repeated PBACHeroAttributeData data = 1;
+}
+
+message PBACHeroAttributeData
+{
+	optional uint32 count 		= 1; // 英雄个数
+	optional uint32 attrId 		= 2; // 属性id
+}
+
+// -------------------------------------------------------------------
+// 成就各种数据类型结构定义 - 结束
+// -------------------------------------------------------------------
+
+//商店商品信息
+message PBShopProductData
+{
+	optional uint32 id    = 1; // 商品id
+	optional uint32 count = 2; // 已购买次數
+}
+
+//商店数据
+message PBShopData
+{
+	optional uint32 id = 1;	// ID
+	repeated PBShopProductData products = 2;	// 商品列表
+	optional int64  begin_time = 3;	// 开始时间
+	optional int64  end_time   = 4;	// 结束时间
+}

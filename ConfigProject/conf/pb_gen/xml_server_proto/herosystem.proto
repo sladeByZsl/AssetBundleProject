@@ -1,0 +1,76 @@
+syntax =  "proto2";
+package FunPlus.Common.Config;
+import "common/enum_define.proto";
+option go_package =  "server/pkg/gen/rawdata";
+
+// 英雄等级表，对应hero_level表格
+message PBHeroLevelSystemLevelList
+{
+    optional PBHeroSystemLevelRoot HeroSystemLevelList = 1; // 英雄升级表
+    optional PBLevelCostRoot LevelCost = 2; // 英雄升级消耗表
+    optional PBLevelAscendMaxRoot AscendMaxList = 3; // 英雄进阶表
+}
+
+// 英雄升级
+message PBHeroSystemLevelRoot
+{
+    repeated PBHeroSystemLevel  hero_system_level_list      = 1;
+}
+
+message PBHeroSystemLevel
+{
+    optional int32  level_id                                = 1; // 等级
+    optional int32  star1                                   = 2; // 1星经验
+    optional int32  star2                                   = 3; // 2星经验
+    optional int32  star3                                   = 4; // 3星经验
+    optional int32  star4                                   = 5; // 4星经验
+    optional int32  star5                                   = 6; // 5星经验
+    optional float  goldCost_star1                          = 7; // 1星消耗金币系数
+    optional float  goldCost_star2                          = 8; // 2星消耗金币系数
+    optional float  goldCost_star3                          = 9; // 3星消耗金币系数
+    optional float  goldCost_star4                          = 10;// 4星消耗金币系数
+    optional float  goldCost_star5                          = 11;// 5星消耗金币系数
+}
+
+// 英雄升级消耗
+message PBLevelCostRoot
+{
+    repeated PBLevelCost  level_cost                        = 1;
+}
+
+message PBLevelCost
+{
+    optional int32 level_cost_id                            = 1; // 星级id
+    optional int32 cost_gold                                = 2; // 消耗金币（随主卡）
+    optional int32 gain_exp                                 = 3; // 经验（随狗粮）
+}
+
+// 英雄进阶
+message PBLevelAscendMaxRoot
+{
+    repeated PBLevelAscendMax level_ascend_max_list = 1;
+}
+
+message PBLevelAscendMax
+{
+    optional int32 ascend_id                                = 1; // (进阶)星级id
+    optional int32 level_max                                = 2; // 等级上限
+    repeated int32 adv_level                                = 3; // 进阶等级
+    repeated int32 adv_cost_Color_Blue                      = 4;
+    repeated int32 adv_cost_Color_Green                     = 5;
+    repeated int32 adv_cost_Color_Purple                    = 6;
+    repeated int32 adv_cost_Color_Red                       = 7;
+    repeated int32 adv_cost_Color_Yellow                    = 8;
+}
+
+// 英雄进阶消耗
+message PBAscendCostRoot
+{
+    repeated PBAscendCost ascend_cost_list                  = 1;
+}
+
+message PBAscendCost
+{
+    optional int32 ascend_cost_id                           = 1; // (进阶)消耗id
+    repeated PBAscendCostEntity cost_list                   = 2; // 消耗道具列表
+}

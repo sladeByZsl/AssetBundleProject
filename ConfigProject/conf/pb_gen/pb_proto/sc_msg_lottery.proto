@@ -1,0 +1,52 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+
+//请求抽奖信息
+message PBLotteryDataRequest
+{
+    option (OptionMessageId) = SC_MSG_LotteryData_Request;
+}
+
+//抽奖数据
+message PBLotteryData
+{
+	optional uint32 id = 1;	// ID
+	optional uint32 free_times = 2;	// 免费抽取的次数
+	optional int64  free_reset_time = 3;	// 免费抽取重置时间	
+}
+
+//响应抽奖信息
+message PBLotteryDataResponse
+{
+    option (OptionMessageId) = SC_MSG_LotteryData_Response;   
+    repeated  PBLotteryData datas = 1;
+}
+
+//抽奖方式
+enum ELotteryRollType
+{
+	One = 0; //单抽
+	Ten = 1; //十连抽
+}
+
+//请求抽奖
+message PBLotteryRequest
+{
+    option (OptionMessageId) = SC_MSG_Lottery_Request;
+    optional uint32 id = 1; // 抽奖ID
+    optional int32 roll_type = 2; // 抽奖方式见ELotteryRollType
+}
+
+//响应抽奖
+message PBLotteryResponse
+{
+    option (OptionMessageId) 	= SC_MSG_Lottery_Response;  
+    optional  PBLotteryData data = 1; // 抽奖数据更新
+    repeated PBItemValue items = 2;//掉落信息
+}

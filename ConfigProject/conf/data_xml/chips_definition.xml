@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PBChipDefinition>
+  <chips chip_id="0" chip_type="CT_Background" group_index="0" collect_anim="1">
+    <grade_resource>cell</grade_resource>
+  </chips>
+  <chips chip_id="1" chip_type="CT_Color" color="Color_Blue" group_index="11" skin="chip_blue" collect_anim="1">
+    <grade_resource>chip_normal</grade_resource>
+  </chips>
+  <chips chip_id="2" chip_type="CT_Color" color="Color_Green" group_index="11" skin="chip_green" collect_anim="1">
+    <grade_resource>chip_normal</grade_resource>
+  </chips>
+  <chips chip_id="3" chip_type="CT_Color" color="Color_Purple" group_index="11" skin="chip_purple" collect_anim="1">
+    <grade_resource>chip_normal</grade_resource>
+  </chips>
+  <chips chip_id="4" chip_type="CT_Color" color="Color_Red" group_index="11" skin="chip_red" collect_anim="1">
+    <grade_resource>chip_normal</grade_resource>
+  </chips>
+  <chips chip_id="5" chip_type="CT_Color" color="Color_Yellow" group_index="11" skin="chip_yellow" collect_anim="1">
+    <grade_resource>chip_normal</grade_resource>
+  </chips>
+  <chips chip_id="7" chip_type="CT_InitGroup" group_index="11">
+    <grade_resource>chip_groupcolor</grade_resource>
+  </chips>
+  <chips chip_id="8" chip_type="CT_InitRandom" group_index="11">
+    <grade_resource>chip_randomcolor</grade_resource>
+  </chips>
+  <chips chip_id="10" chip_type="CT_Bonus" color="Color_Blue" group_index="12" bonus_type="Bonus_Rainbow" skin="color_blue">
+    <grade_resource>bonus_color</grade_resource>
+  </chips>
+  <chips chip_id="11" chip_type="CT_Bonus" color="Color_Green" group_index="12" bonus_type="Bonus_Rainbow" skin="color_green">
+    <grade_resource>bonus_color</grade_resource>
+  </chips>
+  <chips chip_id="12" chip_type="CT_Bonus" color="Color_Purple" group_index="12" bonus_type="Bonus_Rainbow" skin="color_purple">
+    <grade_resource>bonus_color</grade_resource>
+  </chips>
+  <chips chip_id="13" chip_type="CT_Bonus" color="Color_Red" group_index="12" bonus_type="Bonus_Rainbow" skin="color_red">
+    <grade_resource>bonus_color</grade_resource>
+  </chips>
+  <chips chip_id="14" chip_type="CT_Bonus" color="Color_Yellow" group_index="12" bonus_type="Bonus_Rainbow" skin="color_yellow">
+    <grade_resource>bonus_color</grade_resource>
+  </chips>
+  <chips chip_id="15" chip_type="CT_Bonus" color="Color_Blue" group_index="12" bonus_type="Bonus_Kite" skin="color_blue">
+    <grade_resource>bonus_bomb</grade_resource>
+  </chips>
+  <chips chip_id="16" chip_type="CT_Bonus" color="Color_Green" group_index="12" bonus_type="Bonus_Kite" skin="color_green">
+    <grade_resource>bonus_bomb</grade_resource>
+  </chips>
+  <chips chip_id="17" chip_type="CT_Bonus" color="Color_Purple" group_index="12" bonus_type="Bonus_Kite" skin="color_purple">
+    <grade_resource>bonus_bomb</grade_resource>
+  </chips>
+  <chips chip_id="18" chip_type="CT_Bonus" color="Color_Red" group_index="12" bonus_type="Bonus_Kite" skin="color_red">
+    <grade_resource>bonus_bomb</grade_resource>
+  </chips>
+  <chips chip_id="19" chip_type="CT_Bonus" color="Color_Yellow" group_index="12" bonus_type="Bonus_Kite" skin="color_yellow">
+    <grade_resource>bonus_bomb</grade_resource>
+  </chips>
+  <chips chip_id="25" chip_type="CT_NoReshuffle" group_index="4">
+    <grade_resource>chip_nr</grade_resource>
+  </chips>
+  <chips chip_id="26" chip_type="CT_NoMatch" group_index="5">
+    <grade_resource>chip_nm</grade_resource>
+  </chips>
+  <chips chip_id="27" chip_type="CT_NoBoosters" group_index="1">
+    <grade_resource>chip_nbc</grade_resource>
+  </chips>
+  <chips chip_id="33" chip_type="CT_BirthPoint" group_index="27">
+    <grade_resource>brithpoint_default</grade_resource>
+  </chips>
+  <chips chip_id="34" chip_type="CT_BirthPointWeight" group_index="27">
+    <grade_resource>brithpoint_weight</grade_resource>
+  </chips>
+  <chips chip_id="36" chip_type="CT_Gravity" group_index="7">
+    <grade_resource>chip_gravity</grade_resource>
+  </chips>
+  <chips chip_id="37" chip_type="CT_BirthPointLoop" group_index="27">
+    <grade_resource>entry_tap</grade_resource>
+  </chips>
+  <chips chip_id="56" chip_type="CT_Area" group_index="1">
+    <grade_resource>area</grade_resource>
+  </chips>
+</PBChipDefinition>

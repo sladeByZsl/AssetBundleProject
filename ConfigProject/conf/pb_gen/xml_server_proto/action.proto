@@ -1,0 +1,17 @@
+syntax = "proto2";
+package FunPlus.Common.Config;
+import "common/enum_define.proto";
+option go_package = "server/pkg/gen/rawdata";
+
+
+// 行为基础
+message PBAction
+{
+	optional uint32 act_id						= 1;//id
+	optional ESActionType act_actionType		= 2[default = ActionType_PopTips];//行为类型
+	optional string act_factor1					= 3;//参数1
+	optional string act_factor2					= 4;//参数2
+	optional string act_factor3 				= 5;//参数3
+	optional string act_factor4 				= 6;//参数4
+}
+

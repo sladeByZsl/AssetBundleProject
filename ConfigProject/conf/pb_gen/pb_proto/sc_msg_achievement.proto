@@ -1,0 +1,29 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+///
+/// 成就系统
+///
+
+// 请求全部成就
+message PBGetAllAchievementRequest
+{
+    option (OptionMessageId) = SC_MSG_GetAllAchievementRequest;
+}
+
+//
+message PBGetAllAchievementResponse
+{
+    option (OptionMessageId) = SC_MSG_GetAllAchievementResponse;
+    repeated PBAchievementData achievementData = 1;
+}
+
+
+
+
+

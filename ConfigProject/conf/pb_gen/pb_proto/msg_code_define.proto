@@ -1,0 +1,161 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+
+option go_package = "server/pkg/gen/msg";
+package FunPlus.Common.Config;
+
+enum EMessageCode
+{
+	/**
+	 *  0 ~ 1000,      错误码给golib保留
+	 *  1000 ~ 2000,   错误码给puzlib保留
+	 *  2000 ~ 3000,   editor错误码
+	 *
+	 *  10000 ~ 70000, SDK接入返回错误码
+	 *  70000 ~ 99999, 客户端使用
+	 *
+	 *  -10000 ~ -50000, server-to-client错误码，服务器业务逻辑错误码，服务器错误码以SC_XXX为前缀
+	 *
+	 */
+
+	CODE_Success			        = 0; // Success
+	CODE_UNKNOWN                    = 1;
+	CODE_ErrorCode_NotImplement     = 2;
+	CODE_TIMEOUT                    = 3;
+	CODE_REQUEST_MSG_CAST_ERROR     = 4;
+	CODE_ErrorCode_Canceled         = 5;
+	CODE_ErrorCode_SemverCheckError = 6;
+	CODE_ErrorCode_TokenCheckError  = 8;
+	CODE_ErrorCode_PacketTooLarge   = 9;
+
+	//reserve for editor
+	CODE_ErrPasswd                  = 2001; // 用户名或密码错误
+	CODE_ErrTokenErr                = 2002; // 异地登陆
+	CODE_ErrPermisson               = 2003; // 无权操作
+	CODE_ErrEditorCreate            = 2004; // 无权创建
+	CODE_ErrEditorMoveTarget        = 2005; // 无权从目标移动
+	CODE_ErrEditorMoveTo            = 2006; // 无权在目标位置创建
+	CODE_ErrEditorCopyTo            = 2007; // 无权在目前位置拷贝
+	CODE_ErrOtherLocked             = 2008; // 文件已被他人锁定
+	CODE_ErrLockFirst               = 2009; // 请先锁定再解锁
+	CODE_ErrParamMiss		        = 2010;	// 缺少参数
+
+	CODE_ErrTokenInvalid	        = 2011;	// Token非法
+	CODE_ErrTokenTimeout	        = 2012;	// Token超时
+	CODE_ErrAppIdMismatch	        = 2013;	// APPID错误
+	CODE_ErrCharIdNotExist	        = 2014; // 角色ID不存在
+	CODE_UserAlreadyOffline         = 2015; // 玩家已下线
+	CODE_UserLoginFromOtherDevice	= 2016; // 您的账号已经在别的设备登录
+	CODE_CharAlreadyCreated	        = 2017;// 已经创建了角色，暂不开放创建多个角色
+
+	/*
+	 * server to client ErrorCode: -10000 ~ -50000
+	 */
+	SC_InternalUnknownErr              = -10001; // 服务器内部未知错误
+    SC_DataBaseOperationErr            = -10002; // 数据库操作失败
+	SC_NotFoundInConf                  = -10003; // 配置表中没有找到对应的值
+	SC_ErrParameters                   = -10004; // 参数错误
+	SC_ErrDebugModeFeature             = -10005; // 服务器不是debug模式，不能使用debug feature
+	SC_ErrInnerLogic                   = -10006; // 服务器内部逻辑错误
+	SC_ErrSessionErr                   = -10007; // link session错误
+	SC_ErrRequestHandleTimeout         = -10008; // request处理超时
+	SC_ErrSdkSessionKeyErr             = -10009; // sdk session key 检查错误
+	SC_ErrLoginRepeated                = -10010; // 已经登录，重复发送login request
+	SC_ErrDebugModeLoginFpId           = -10011; // debug模式下，login的fpid无效
+	SC_ErrSdkGameIdNotMatch            = -10012; // sdk check session 返回的gameid不是本游戏
+
+	//玩家
+	SC_ErrDiamondNotEnough             = -10101; // 钻石不足
+	SC_ErrGoldNotEnough                = -10102; // 金币不足
+	SC_ErrStoneNotEnough 		       = -10103; // 食物不足
+
+	//登录功能
+	SC_ErrLoginCreateRole              = -10201; // 登录创建角色失败
+	SC_ErrSaveNewRole                  = -10202; // 新创建角色入库失败
+	SC_ErrRecreateRole                 = -10203; // 重新创建橘色失败
+    SC_ErrMustLogin                    = -10204; // 必须先登录
+    SC_ErrGetRole                      = -10205; // 从DB获取role失败
+
+	//建筑功能
+	SC_ErrGetAllBuildingsFromDB        = -10301; // 获取建筑信息失败
+	SC_ErrBuildingNotFound             = -10302; // 没有找到对应的建筑
+	SC_ErrPosHasBuild                  = -10303; // 该位置已经有建筑
+	SC_ErrBidNotFoundInConf            = -10304; // 配置表中没有找到该建筑id
+	SC_ErrRequireBuilding              = -10305; // 要求前置建筑
+	SC_ErrBuildingInnerLogic           = -10306; // 逻辑错误，该错误应该由客户端预先检查，比如：空地建造、建筑等级必须是1
+	SC_ErrOverMainCityLevel            = -10307; // 建筑升级不能超过主城等级
+	SC_ErrBuildingStateCanNotOP        = -10308; // 当前建筑的状态不能进行该操作
+	SC_ErrUpgradeBuildingId            = -10309; // 升级的目标建筑必须是src建筑的id+1
+	SC_ErrBuildingDataNotMatch         = -10310; // 服务器客户端building的数据不同步，需要客户端重新Sync building data
+	SC_ErrCampProductResearched        = -10311; // 该产品已经研究过，不能重复研究
+	SC_ErrAreaHasUnlocked              = -10312; // 该区域已经解锁，不能重复解锁
+	SC_ErrCampProductNotResearch       = -10313; // 该product还没有学习
+	SC_ErrOverUpgradeQueueLimit        = -10314; // 超过升级队列限制，建筑不能升级或建造
+	SC_ErrAreaHasNotUnlocked           = -10315; // 该区域还没有解锁
+	SC_ErrOverBuildingCountLimit       = -10316; // 超过该类建筑的建造数量
+	SC_ErrOverBuildingLevel            = -10317; // 超过建筑等级限制
+
+	//英雄功能
+	SC_ErrGetAllHeroesFromDB           = -10401; // 获取英雄信息失败
+	SC_ErrHidNotFoundInConf	           = -10402; // 配置表中没有找到该英雄id
+	SC_ErrLevelIdNotFoundInConf        = -10403; // 配置表中没有找到level id
+	SC_ErrCostIdNotFoundInConf         = -10404; // 配置表中没有找到level cost id
+	SC_ErrHeroInnerLogic	           = -10405; // 逻辑错误，该错误应该由客户端预先检查，比如：英雄升级吃卡数量、材料卡不能上锁
+	SC_ErrGetAllHeroTeamsFromDB        = -10406; // 获取英雄组队信息失败
+	SC_ErrHeroPackageIsFull            = -10407; // 英雄背包容量已满
+
+	//副本功能10501-10550
+	SC_ErrDungeonInnerLogic		       = -10501; // 副本逻辑错误，该错误应该由客户端预先检查
+	SC_ErrDungeonGetDataFromDB         = -10502; // 获取副本信息失败
+	SC_ErrDungeonIdNotFoundInConf      = -10503; // 配置表中没有找到该副本id
+	SC_ErrDungeonIdNotFoundInDB        = -10504; // 副本没有找到
+	SC_ErrDungeonIdNotUnLocked         = -10505; // 章节未解锁
+	SC_ErrDungeonNotRepeated           = -10506; // 章节已完成不可重复打
+	SC_ErrDungeonEnergyNotEnough       = -10507; // 副本体力不足
+
+	//抽奖功能10551--10570
+	SC_ErrLotteryIdNotFoundInConf      = -10551; // 配置表中没有找到该抽奖id
+	SC_ErrLotteryIdNotFoundInDB        = -10552; // 获取抽奖id信息失败
+
+	//物品功能10601-10650
+	SC_ErrItemIdNotFoundInConf 	       = -10601; // 配置表中没有找到该物品id
+	SC_ErrItemIdNotFoundInDB           = -10602; // 获取物品id信息失败
+	SC_ErrItemCountNotEnough           = -10603; // 获取物品数量不足
+	SC_ErrItemCantUse		           = -10604; // 物品不可使用
+	SC_ErrItemHoldMaxCountLimit	       = -10605; // 物品已达到最大持有数量
+	SC_ErrItemNotFound	 		       = -10606; // 物品未找到
+	SC_ErrItemConfInvalidCumulate      = -10607; // 物品堆叠数配置有误
+
+	//商店功能10651-10700
+	SC_ErrShopIdNotFoundInConf 	  	   = -10651; // 配置表中没有找到该商店id
+	SC_ErrShopIdNotFoundInDB     	   = -10652; // 获取商店id信息失败
+	SC_ErrShopProductIdNotFoundInConf  = -10653; // 配置表中没有找到该商品id
+	SC_ErrShopProductIdNotFoundInShop  = -10654; // 商店中的没有出售此商品
+	SC_ErrShopProductMaxCountLimit	   = -10655; // 商品已达到最大购买数量
+	SC_ErrShopProductInvalidParams	   = -10656; // 商品配置参数有误
+	SC_ErrShopRefresh				   = -10657; // 商品数据已刷新
+	SC_ErrShopGetCandidateConfNotFound = -10658; // 读取商店候选配置表失败
+	SC_ErrShopTimeExpired			   = -10659; // 商品已关闭
+
+	//资源货币功能10701-10750
+	SC_ErrESResourceNotEnough          = -10701; // 玩家资源不足（需要细分）
+	SC_ErrEnergyNotEnough 	           = -10702; // 体力不足
+    SC_ErrRecruitNotEnough             = -10703; // 招募新兵不足
+	SC_ErrOverResourceMaxValue         = -10704; // 超过资源的最大值
+
+	//成就功能10751-10779
+	SC_ErrGetAllAchievementFromDb      = -10751; // 加载DB数据错误
+	SC_ErrAchievementInnerErr          = -10752; // 成就内部错误
+
+	//爵位系统10780 - -10799
+	SC_ErrTitleIdNotFoundInConf	       = -10780; // 配置表中没有找到该爵位id
+	SC_ErrTitleInnerErr      	       = -10781; // 爵位内部错误
+	SC_ErrTitleTaskNotFinished         = -10782; // 爵位任务未完成
+
+	//任务系统及相关系统：task, condition, action
+	SC_ErrConditionNotMatch            = -10800; // 条件未满足
+	SC_ErrTaskDataNotMatch             = -10801; // 客户端的任务数据和服务器不匹配
+	SC_ErrTaskHasFinished              = -10802; // 任务已经完成，不能再次接取
+	SC_ErrPlayerLevelNotMatch          = -10803; // 玩家等级不满足条件
+
+}

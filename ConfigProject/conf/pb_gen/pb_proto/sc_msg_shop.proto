@@ -1,0 +1,39 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+import "msg_common.proto";
+
+//请求所有商店信息
+message PBShopAllDataRequest
+{
+    option (OptionMessageId) = SC_MSG_ShopAllData_Request;
+}
+
+
+//响应所有商店信息
+message PBShopAllDataResponse
+{
+    option (OptionMessageId) = SC_MSG_ShopAllData_Response;
+    repeated  PBShopData datas = 1;
+}
+
+//请求商店购买
+message PBShopBuyRequest
+{
+    option (OptionMessageId) = SC_MSG_Shop_Buy_Request;
+    optional uint32 id           = 1; // 商店ID
+    optional uint32 product_id   = 2; // 商品id
+    optional uint32 count  		 = 3; // 商品次數
+    optional int64  end_time 	 = 4; // 商店上次刷新时间
+}
+
+//响应商店购买
+message PBShopBuyResponse
+{
+    option (OptionMessageId) 	= SC_MSG_Shop_Buy_Response;
+}
+

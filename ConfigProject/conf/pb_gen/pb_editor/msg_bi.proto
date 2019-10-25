@@ -1,0 +1,108 @@
+syntax = "proto2";
+option optimize_for = SPEED;
+option go_package = "server/pkg/gen/msg";
+
+package FunPlus.Common.Config;
+
+import "msg_base.proto";
+
+import "level_list.proto";
+
+//------------------------------------------------------------
+// bi面板数据
+enum EBIResultStatus
+{
+	EBIResultNone   = 0x00;
+	EBIResultSucess = 0x02;
+	EBIResultFailed = 0x04;
+	EBIResultQuit   = 0x08;
+}
+enum EBIItemUseStatus
+{
+	EBIItemAll = 0;
+	EBIItemUsed = 1;
+	EBIItemUnUsed = 2;
+}
+
+
+message PBBIPanelBaseInfo
+{
+	optional string level_version = 1;
+	optional int32  challenge_cnt = 2;
+	optional float  sucess_percent = 3;
+	optional float  avg_reshuffle = 4;
+	optional float  avg_dispare = 5;
+	optional float  fuuu_percent = 6;
+
+}
+
+message PBBIPanelAvgProgress
+{
+	repeated float avg_progress_list = 1;
+}
+
+message PBBIPanelItemUseInfo
+{
+	optional int32    booster_type = 1;
+	optional int32          num = 2;
+}
+
+message PBBIPanelItemUseStatus
+{
+	optional int32  use_cnt = 1;
+	repeated PBBIPanelItemUseInfo item_useinfo_list = 2;
+}
+
+message PBBIPanelSuccessInfo
+{
+	optional float avg_time = 1;
+	optional float avg_remain_step = 2;
+	optional float avg_coin_num = 3;
+}
+
+message PBBIPanelTargetRemain
+{
+	optional int32    target_type = 1;
+	optional float    avg_remain = 2;
+}
+
+message PBBIPanelFailedInfo
+{
+	repeated PBBIPanelTargetRemain avg_targetremain_list = 1;
+	optional int32 quit_cnt = 2;
+	optional float quit_percent = 3;
+}
+
+
+message PBBIPanelInfoRequest
+{
+	option (OptionMessageId)    = MSG_M3BIPanelInfo_Request;
+	optional int32            result_status = 1;//基于EBIResultStatus做或运算
+	optional EBIItemUseStatus use_status   = 2 [default = EBIItemAll];
+	optional PBLevelDescription desc = 3;
+
+}
+
+message PBBIPanelInfoResponse
+{
+	option (OptionMessageId)    = MSG_M3BIPanelInfo_Response;
+	optional PBBIPanelBaseInfo  base_info = 1;
+	optional PBBIPanelAvgProgress avg_progress = 2;
+	optional PBBIPanelItemUseStatus item_use_status = 3;
+	optional PBBIPanelSuccessInfo     success_info = 4;
+	optional PBBIPanelFailedInfo      failed_info = 5;
+}
+
+message PBBISessionBegin
+{
+
+	optional int32 key = 1;
+	optional int32 seed = 2;
+}
+
+
+//Begin  seed 
+//End  coin 
+//booster  id cnt
+//exit    pesent
+//resuffer resuffer cnt 消除时

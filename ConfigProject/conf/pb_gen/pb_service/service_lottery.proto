@@ -1,0 +1,23 @@
+syntax = "proto3";
+package service;
+option go_package = "server/pkg/gen/service";
+
+import "sc_msg_lottery.proto";
+import "google/api/annotations.proto";
+
+service LotteryService {
+
+  rpc GetLotteryData(FunPlus.Common.Config.PBLotteryDataRequest) returns (FunPlus.Common.Config.PBLotteryDataResponse) {
+      option (google.api.http) = {
+        post: "/api/v1/dungeon/get-lottery-data"
+        body: "*"
+      };
+  }
+
+  rpc Lottery(FunPlus.Common.Config.PBLotteryRequest) returns (FunPlus.Common.Config.PBLotteryResponse) {
+      option (google.api.http) = {
+            post: "/api/v1/dungeon/lottery"
+            body: "*"
+        };
+  }
+}
