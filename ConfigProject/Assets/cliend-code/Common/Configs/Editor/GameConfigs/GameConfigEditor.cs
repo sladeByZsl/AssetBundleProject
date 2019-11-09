@@ -56,10 +56,10 @@ public class GameConfigEditor : EditorWindow
 
         GameConfigGroups gameXmlGroups;
         GameConfigGroups gameXmlSheetGroups;
-        GameConfigGroups gameXmlLevelGroups;
-        GameConfigDataBase.GetInstance().TryGetGroups(out gameXmlGroups, out gameXmlSheetGroups, out gameXmlLevelGroups);
-
-		GetAllFileByXmlGroup(gameXmlGroups);
+        //GameConfigGroups gameXmlLevelGroups;
+        //GameConfigDataBase.GetInstance().TryGetGroups(out gameXmlGroups, out gameXmlSheetGroups, out gameXmlLevelGroups);
+        GameConfigDataBase.GetInstance().TryGetGroups(out gameXmlGroups, out gameXmlSheetGroups);
+        GetAllFileByXmlGroup(gameXmlGroups);
         SerializeAllXml(mXmlGroups);
 
         //GetAllFileByXmlLevelGroup(gameXmlLevelGroups);

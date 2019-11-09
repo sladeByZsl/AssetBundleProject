@@ -32,7 +32,6 @@ namespace FunPlus.Common.GameConfig
 
 		private GameConfigGroups mGameXmlGroups;
 		private GameConfigGroups mGameXmlSheetGroups;
-        private GameConfigGroups mGameLevelGroups;
 
 		private static GameConfigDataBase mInstance = null;
 
@@ -47,7 +46,7 @@ namespace FunPlus.Common.GameConfig
 			
 			string xmlPath = mGameConfig.gameConfigData.xmlPath;
 			string xmlSheetPath = mGameConfig.gameConfigData.xmlSheetPath;
-            string xmlLevelPath = mGameConfig.gameConfigData.xmlLevelPath;
+            //string xmlLevelPath = mGameConfig.gameConfigData.xmlLevelPath;
 			mGameXmlGroups = GetConfigInfo<GameConfigGroups>(xmlPath);
 			mGameXmlSheetGroups = GetConfigInfo<GameConfigGroups>(xmlSheetPath);
             //mGameLevelGroups = GetConfigInfo<GameConfigGroups>(xmlLevelPath);
@@ -137,11 +136,11 @@ namespace FunPlus.Common.GameConfig
 		/// <param name="xmlGroups"></param>
 		/// <param name="xmlSheetGroups"></param>
         /// <param name="xmlLevelGroups"></param>
-        public void TryGetGroups(out GameConfigGroups xmlGroups, out GameConfigGroups xmlSheetGroups, out  GameConfigGroups  xmlLevelGroups)
+        public void TryGetGroups(out GameConfigGroups xmlGroups, out GameConfigGroups xmlSheetGroups)
 		{
 			xmlGroups = mGameXmlGroups;
             xmlSheetGroups = mGameXmlSheetGroups;
-            xmlLevelGroups = mGameLevelGroups;
+            //xmlLevelGroups = mGameLevelGroups;
 		}
 
 		/// <summary>
@@ -157,8 +156,8 @@ namespace FunPlus.Common.GameConfig
 				    return mGameXmlGroups;
 				case DataType.XML_SHEET:
 				    return mGameXmlSheetGroups;
-                case DataType.XML_LEVEL:
-                    return mGameLevelGroups;
+                //case DataType.XML_LEVEL:
+                //    return mGameLevelGroups;
 			}
 			return null;
 		}
